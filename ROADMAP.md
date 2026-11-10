@@ -37,7 +37,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 
 - [x] **0. Foundation**: repo, roadmap, dev harness (`dev/nested.sh`,
       `dev/shot.sh`), font, base README.
-- [ ] **1. Hyprland base**: Lua config split into modules (look, animations,
+- [x] **1. Hyprland base**: Lua config split into modules (look, animations,
       binds, rules, autostart), Wii palette, zoom-style animations, workspace 1
       kept as the home menu. Docs: `docs/hyprland.md`.
 - [ ] **2. Home screen shell**: Quickshell skeleton, theme singleton, striped

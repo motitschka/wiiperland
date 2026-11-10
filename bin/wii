@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# wii: small command hub used by the Hyprland binds and the Quickshell UI.
+#
+#   wii home                 go back to the Wii Menu (workspace 1)
+#   wii homemenu             toggle the HOME Menu overlay
+#   wii lock                 lock the session
+#   wii launch <cmd...>      start an app on a fresh, empty workspace
+#   wii screenshot           save a screenshot to ~/Pictures/Screenshots
+#   wii volume up|down|mute  change volume (and show the on-screen indicator)
+#   wii ipc <target> <fn> [args]   raw Quickshell IPC call
+set -u
+ROOT="${WIIPERLAND_ROOT:-$(cd "$(dirname "$(readlink -f "$0")")/.." && pwd)}"
+QS="${WIIPERLAND_QS:-qs}"
+
+ipc() { "$QS" -p "$ROOT/quickshell" ipc call "$@" >/dev/null 2>&1; }
+lua_str() { # quote a string as a Lua long-bracket literal
+  printf '[==[%s]==]' "$1"
+}
+
+cmd="${1:-}"; shift || true
+case "$cmd" in
+  home)
+    hyprctl dispatch 'hl.dsp.focus({ workspace = 1 })' >/dev/null
+    ipc shell home ;;
+  homemenu)
+    ipc homemenu toggle ;;
+  lock)
+    ipc lock lock || loginctl lock-session ;;
+  launch)
+    [[ $# -gt 0 ]] || { echo "usage: wii launch <cmd...>" >&2; exit 2; }
+    hyprctl dispatch "hl.dsp.exec_cmd($(lua_str "$*"), { workspace = \"empty\" })" >/dev/null ;;
+  screenshot)
+    dir="$HOME/Pictures/Screenshots"; mkdir -p "$dir"
+    f="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"
+    grim "$f" && ipc shell toast "Screenshot saved" "$f" ;;
+  volume)
+    case "${1:-}" in
+      up)   wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+      down) wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+      mute) wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+      *) echo "usage: wii volume up|down|mute" >&2; exit 2 ;;
+    esac
+    ipc shell osd volume ;;
+  ipc)
+    "$QS" -p "$ROOT/quickshell" ipc call "$@" ;;
+  ""|-h|--help|help)
+    sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//' ;;
+  *)
+    echo "wii: unknown command '$cmd' (try: wii help)" >&2; exit 2 ;;
+esac

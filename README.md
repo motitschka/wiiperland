@@ -12,3 +12,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 
 ## Docs
 - [Development and testing](docs/development.md)
+- [Hyprland config](docs/hyprland.md)
