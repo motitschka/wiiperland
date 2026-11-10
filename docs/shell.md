@@ -34,6 +34,8 @@ quickshell/
     Toasts.qml           notification toasts
     HomeMenu.qml         HOME Menu overlay (SUPER+ESC)
     Osd.qml              volume indicator
+    LockScreen.qml       session lock + PAM + idle auto-lock
+    Startup.qml          once-per-login "click to continue" screen
   channels/              tile art per channel type (import qs.channels)
     ChannelArt.qml       picks the art component for a channel type
     AppArt.qml           icon + name on a tinted background, glyph fallback

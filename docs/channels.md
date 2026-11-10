@@ -28,6 +28,10 @@ file is watched, so saving it updates the menu immediately.
 | `sounds` | `true` | UI sounds (see [sounds.md](sounds.md)) |
 | `soundVolume` | `0.6` | 0 to 1 |
 | `pages` | `4` | Minimum number of pages (each holds 12 slots). More are added automatically if `channels` is longer. |
+| `startupScreen` | `true` | "Click to continue" screen once per login ([lock-and-startup.md](lock-and-startup.md)) |
+| `lock.idleMinutes` | `10` | Lock after this many idle minutes; `0` = never |
+| `forecast` | | Weather settings, see below |
+| `messages.keep` | `200` | How many messages the board keeps |
 | `channels` | `[]` | Slots in order: page 1 is slots 1–12, left to right, top to bottom. `null` leaves a slot empty. |
 
 ## Channel fields

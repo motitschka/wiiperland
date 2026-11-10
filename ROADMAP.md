@@ -58,7 +58,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
       board panel, popups.
 - [x] **8. HOME Menu overlay**: top and bottom bars slide in, go to menu,
       close channel, volume slider, battery, power menu.
-- [ ] **9. Lock screen and startup screen**: "click to continue" splash and a
+- [x] **9. Lock screen and startup screen**: "click to continue" splash and a
       session lock in the same style.
 - [ ] **10. Cursor**: original hand pointer theme (hyprcursor and XCursor).
 - [ ] **11. Install / uninstall**: dependency check, backups of the existing

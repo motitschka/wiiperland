@@ -15,6 +15,8 @@ ShellRoot {
     Toasts {}
     HomeMenu { id: homeMenu }
     Osd { id: osd }
+    LockScreen { id: lock }
+    Startup {}
 
     // make sure the notification server starts with the shell
     readonly property int _unread: Messages.unread
