@@ -13,14 +13,16 @@ ShellRoot {
     }
 
     Toasts {}
+    HomeMenu { id: homeMenu }
+    Osd { id: osd }
 
     // make sure the notification server starts with the shell
     readonly property int _unread: Messages.unread
 
     IpcHandler {
         target: "shell"
-        function home(): void { }
+        function home(): void { homeMenu.close(); Menu.closePreviews() }
         function toast(title: string, body: string): void { Messages.local(title, body) }
-        function osd(kind: string): void { console.log("osd", kind) }
+        function osd(kind: string): void { osd.show(kind) }
     }
 }

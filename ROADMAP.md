@@ -56,7 +56,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
       setting to turn them off.
 - [x] **7. Message board**: notification server, mail button glow and count,
       board panel, popups.
-- [ ] **8. HOME Menu overlay**: top and bottom bars slide in, go to menu,
+- [x] **8. HOME Menu overlay**: top and bottom bars slide in, go to menu,
       close channel, volume slider, battery, power menu.
 - [ ] **9. Lock screen and startup screen**: "click to continue" splash and a
       session lock in the same style.

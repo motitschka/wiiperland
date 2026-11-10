@@ -38,6 +38,7 @@ require("wiiperland").setup({
 | `kb_layout` / `kb_variant` / `kb_options` | `us` / `""` / `""` | Keyboard |
 | `monitor` | `{ output = "", mode = "preferred", position = "auto", scale = "auto" }` | Passed to `hl.monitor` |
 | `cursor_size` | `32` | XCursor/hyprcursor size |
+| `home_on_empty` | `true` | Return to the menu when a channel's last window closes |
 | `light_apps` | `true` | Sets `ADW_DEBUG_COLOR_SCHEME=prefer-light` and `GTK_THEME=Adwaita` so apps match the white UI, without changing your global gsettings |
 
 ## How the "menu workspace" works
@@ -76,6 +77,11 @@ wii screenshot           save a screenshot to ~/Pictures/Screenshots
 wii volume up|down|mute  change volume (and show the on-screen indicator)
 wii ipc <target> <fn>    raw Quickshell IPC call
 ```
+
+## Debugging Lua
+Runtime errors in hooks (`hl.on`, `hl.timer`) don't show up in
+`hyprctl configerrors`. Hyprland shows them as notifications in the
+top-right corner, so check there (or in a `dev/shot.sh` screenshot).
 
 ## Tested
 - `Hyprland --verify-config` passes.

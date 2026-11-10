@@ -18,3 +18,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 - [Channel preview and launching](docs/preview-and-launch.md)
 - [Sounds](docs/sounds.md)
 - [Message Board](docs/messages.md)
+- [HOME Menu and volume](docs/home-menu.md)

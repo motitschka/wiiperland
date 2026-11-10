@@ -12,5 +12,6 @@ return {
   kb_options  = "",
   monitor     = { output = "", mode = "preferred", position = "auto", scale = "auto" },
   cursor_size = 32,
-  light_apps  = true,           -- ask GTK/libadwaita apps for light themes
+  light_apps  = true,
+  home_on_empty = true,         -- closing a channel's last window returns to the menu           -- ask GTK/libadwaita apps for light themes
 }

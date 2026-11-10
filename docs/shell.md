@@ -32,6 +32,8 @@ quickshell/
     MessageBoard.qml     message board overlay
   overlays/              separate layer surfaces (import qs.overlays)
     Toasts.qml           notification toasts
+    HomeMenu.qml         HOME Menu overlay (SUPER+ESC)
+    Osd.qml              volume indicator
   channels/              tile art per channel type (import qs.channels)
     ChannelArt.qml       picks the art component for a channel type
     AppArt.qml           icon + name on a tinted background, glyph fallback
@@ -63,9 +65,10 @@ keep the right proportions instead of stretching.
 
 | Target | Function | Meaning |
 |---|---|---|
-| `shell` | `home()` | Called by `wii home` (menu animations hook in here) |
+| `shell` | `home()` | Called by `wii home`: closes the HOME Menu, previews and the board |
 | `shell` | `toast(title, body)` | Post a message (toast + board) |
-| `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` (phase 8) |
+| `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` |
+| `homemenu` | `toggle()` / `open()` / `close()` | HOME Menu |
 
 ## Customising
 See [channels.md](channels.md) for `config.json` (brand label, 24-hour

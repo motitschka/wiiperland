@@ -13,6 +13,19 @@ return function(o)
     end
   end)
 
+  -- Closing a channel's last window brings you back to the menu, like
+  -- quitting a channel on the Wii.
+  if o.home_on_empty then
+    hl.on("window.close", function(w)
+      hl.timer(function()
+        local ws = hl.get_active_workspace()
+        if ws and not ws.special and ws.id ~= 1 and ws.windows == 0 then
+          hl.dispatch(hl.dsp.focus({ workspace = 1 }))
+        end
+      end, { timeout = 120, type = "oneshot" })
+    end)
+  end
+
   hl.window_rule({
     name  = "suppress-maximize",
     match = { class = ".*" },
