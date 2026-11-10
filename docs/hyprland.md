@@ -37,7 +37,8 @@ require("wiiperland").setup({
 | `mod` | `SUPER` | Main modifier |
 | `kb_layout` / `kb_variant` / `kb_options` | `us` / `""` / `""` | Keyboard |
 | `monitor` | `{ output = "", mode = "preferred", position = "auto", scale = "auto" }` | Passed to `hl.monitor` |
-| `cursor_size` | `32` | XCursor/hyprcursor size |
+| `cursor_size` | `48` | XCursor/hyprcursor size |
+| `cursor_theme` | `"Wiiperland"` | Cursor theme; `nil` keeps yours (see [cursor.md](cursor.md)) |
 | `home_on_empty` | `true` | Return to the menu when a channel's last window closes |
 | `light_apps` | `true` | Sets `ADW_DEBUG_COLOR_SCHEME=prefer-light` and `GTK_THEME=Adwaita` so apps match the white UI, without changing your global gsettings |
 

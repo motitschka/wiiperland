@@ -20,3 +20,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 - [Message Board](docs/messages.md)
 - [HOME Menu and volume](docs/home-menu.md)
 - [Lock screen and startup screen](docs/lock-and-startup.md)
+- [Cursor](docs/cursor.md)

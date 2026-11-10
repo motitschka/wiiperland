@@ -49,6 +49,7 @@ return function(o)
       font_family      = "M PLUS Rounded 1c",
       focus_on_activate = true,
       animate_manual_resizes = true,
+      allow_session_lock_restore = true, -- a restarted shell can take the lock back
     },
 
     dwindle = { preserve_split = true },

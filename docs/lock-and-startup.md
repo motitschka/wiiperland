@@ -18,9 +18,10 @@ Locking:
 IPC: `wii ipc lock lock`, `wii ipc lock isLocked`.
 
 > If Quickshell crashes while locked, Hyprland keeps the session locked and
-> shows its own "lock is dead" screen. Switch to a TTY (Ctrl+Alt+F3), log in,
-> and run `WAYLAND_DISPLAY=wayland-1 qs -p ~/…/quickshell` to get the lock
-> back, or `hyprctl --instance 0 'keyword misc:allow_session_lock_restore 1'`.
+> shows its own "lock is dead" screen. Wiiperland sets
+> `misc.allow_session_lock_restore`, so a restarted shell takes the lock back:
+> switch to a TTY (Ctrl+Alt+F3), log in, and run
+> `HYPRLAND_INSTANCE_SIGNATURE=$(ls -t $XDG_RUNTIME_DIR/hypr | head -1) hyprctl dispatch 'hl.dsp.exec_cmd("qs -p <repo>/quickshell")'`.
 
 ### PAM
 The lock uses PAM's default `login` service through Quickshell. If your system

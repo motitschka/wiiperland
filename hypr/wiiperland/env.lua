@@ -7,6 +7,14 @@ return function(o)
   hl.env("GDK_BACKEND", "wayland,x11,*")
   hl.env("XCURSOR_SIZE", tostring(o.cursor_size))
   hl.env("HYPRCURSOR_SIZE", tostring(o.cursor_size))
+  if o.cursor_theme then
+    hl.env("XCURSOR_THEME", o.cursor_theme)
+    -- find the theme in the repo even before install.sh links it into ~/.local/share/icons
+    local home = os.getenv("HOME") or ""
+    hl.env("XCURSOR_PATH", table.concat({
+      o.root .. "/assets/cursor", home .. "/.local/share/icons", home .. "/.icons",
+      "/usr/share/icons", "/usr/share/pixmaps" }, ":"))
+  end
   hl.env("WIIPERLAND_ROOT", o.root)
 
   -- dev/nested.sh: give children a private session bus

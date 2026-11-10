@@ -60,7 +60,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
       close channel, volume slider, battery, power menu.
 - [x] **9. Lock screen and startup screen**: "click to continue" splash and a
       session lock in the same style.
-- [ ] **10. Cursor**: original hand pointer theme (hyprcursor and XCursor).
+- [x] **10. Cursor**: original hand pointer theme (hyprcursor and XCursor).
 - [ ] **11. Install / uninstall**: dependency check, backups of the existing
       config, symlinks, README with screenshots, full end-to-end test.
 
