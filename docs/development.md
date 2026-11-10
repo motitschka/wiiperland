@@ -31,11 +31,26 @@ Put machine-specific settings such as `QS_PREFIX=...` in `dev/local.env` (git-ig
 
 Logs are written to `dev/.nested/` (git-ignored).
 
+## Isolation from your real session
+`dev/nested.sh` keeps tests away from your desktop:
+- a **private D-Bus session bus** (its own `dbus-daemon`), so the nested
+  shell can own the notification service and test apps don't attach to your
+  running ones (opt out with `WP_SHARED_DBUS=1`);
+- `WIIPERLAND_CONFIG=dev/test-config.json`: a channel list of apps that open
+  their own instance;
+- `WIIPERLAND_STATE=dev/.nested/state`: saved state such as the message board.
+
+`dev/run.sh` uses the same bus, so `dev/run.sh notify-send hi` reaches the
+nested shell.
+
 ## Environment variables the config understands
 | Variable | Meaning |
 |---|---|
 | `WIIPERLAND_ROOT` | Repo location. Set by the dev scripts; normal installs find it automatically. |
 | `WIIPERLAND_DEV_MODE` | Forces the monitor mode (e.g. `1280x720`) and scale 1. Set by `dev/nested.sh`. |
+| `WIIPERLAND_DEV_BUS` | D-Bus address the config hands to child processes (dev only). |
+| `WIIPERLAND_CONFIG` | Path of `config.json` to use. |
+| `WIIPERLAND_STATE` | Folder for saved state (default `~/.local/state/wiiperland`). |
 
 ## Checklist for every change
 1. `Hyprland --verify-config -c hypr/hyprland.lua`

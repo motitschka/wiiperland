@@ -27,7 +27,29 @@ Item {
         }
     }
 
+    // idle tile: note badge over the channel name, like the other channels
+    Column {
+        visible: !root.large && !root.hasTrack
+        anchors.centerIn: parent
+        spacing: root.height * 0.04
+        Rectangle {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: root.height * 0.46; height: width; radius: width * 0.24
+            color: "#ffffff"; border.color: "#d2c3e6"; border.width: Math.max(1, width * 0.03)
+            Text { anchors.centerIn: parent; text: "♪"; font.pixelSize: parent.height * 0.7; color: "#a98ad1" }
+        }
+        Text {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: root.label
+            font.family: Theme.fontBold; font.weight: Font.Bold
+            font.pixelSize: root.height * 0.15
+            color: "#7a6a92"
+            style: Text.Raised; styleColor: "#ffffff"
+        }
+    }
+
     Row {
+        visible: root.large || root.hasTrack
         anchors.centerIn: parent
         anchors.verticalCenterOffset: root.large ? -root.height * 0.04 : 0
         spacing: root.height * 0.07

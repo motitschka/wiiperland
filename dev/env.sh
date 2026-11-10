@@ -22,4 +22,5 @@ wp_load_instance() {
   # shellcheck disable=SC1091
   source "$WP_STATE/instance"
   export HYPRLAND_INSTANCE_SIGNATURE WAYLAND_DISPLAY
+  [[ -n "${WP_BUS:-}" ]] && export DBUS_SESSION_BUS_ADDRESS="$WP_BUS"
 }

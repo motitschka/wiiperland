@@ -14,7 +14,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Bottom
     WlrLayershell.namespace: "wiiperland-home"
-    WlrLayershell.keyboardFocus: preview.active ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.OnDemand
+    WlrLayershell.keyboardFocus: preview.active || board.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.OnDemand
     color: Theme.bg
 
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
@@ -23,11 +23,12 @@ PanelWindow {
     readonly property real s: height / 720
 
     // Leaving the menu (e.g. a channel opened) closes any preview instantly.
-    onMenuOpenChanged: if (!menuOpen && !preview.busy) preview.reset()
+    onMenuOpenChanged: if (!menuOpen) { if (!preview.busy) preview.reset(); board.open = false }
 
     Connections {
         target: Menu
-        function onClosePreviews(): void { preview.close() }
+        function onClosePreviews(): void { preview.close(); board.hide() }
+        function onOpenBoard(): void { if (win.menuOpen) board.show() }
         function onOpenPreview(slot: int): void {
             if (!win.menuOpen || !Config.channels[slot]) return
             // wait for the page slide so the tile is in place
@@ -64,22 +65,28 @@ PanelWindow {
             id: grid
             anchors.fill: parent
             hh: win.height
-            opacity: 1 - preview.progress
-            enabled: !preview.active
+            opacity: 1 - Math.max(preview.progress, board.progress)
+            enabled: !preview.active && !board.open
             onActivated: (slot, tile) => preview.openFrom(slot, tile.mapToItem(menu, 0, 0, tile.width, tile.height))
         }
 
         BottomBar {
             anchors.fill: parent
-            opacity: 1 - preview.progress
-            enabled: !preview.active
-            unread: 0
+            opacity: 1 - Math.max(preview.progress, board.progress)
+            enabled: !preview.active && !board.open
+            unread: Messages.unread
             onHomeClicked: Menu.page = 0
-            onMailClicked: console.log("mail clicked")
+            onMailClicked: board.show()
         }
 
         ChannelPreview {
             id: preview
+            anchors.fill: parent
+            hh: win.height
+        }
+
+        MessageBoard {
+            id: board
             anchors.fill: parent
             hh: win.height
         }

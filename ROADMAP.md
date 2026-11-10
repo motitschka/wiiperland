@@ -54,7 +54,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
       with icon art.
 - [x] **6. Sounds**: original hover, click, back and start sounds, with a
       setting to turn them off.
-- [ ] **7. Message board**: notification server, mail button glow and count,
+- [x] **7. Message board**: notification server, mail button glow and count,
       board panel, popups.
 - [ ] **8. HOME Menu overlay**: top and bottom bars slide in, go to menu,
       close channel, volume slider, battery, power menu.

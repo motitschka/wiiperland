@@ -17,3 +17,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 - [Channels and config.json](docs/channels.md)
 - [Channel preview and launching](docs/preview-and-launch.md)
 - [Sounds](docs/sounds.md)
+- [Message Board](docs/messages.md)

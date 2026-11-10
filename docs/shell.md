@@ -15,6 +15,8 @@ quickshell/
     Launcher.qml         desktop entries, running detection, start/resume
     Weather.qml          wttr.in fetcher for the Forecast Channel
     Sound.qml            UI sounds
+    Messages.qml         notification server + message board state
+    Hypr.qml             Hyprland helpers (focused monitor, workspace)
   home/                  the Wii Menu (import qs.home)
     HomeScreen.qml       full-screen layer surface under all windows
     BottomBar.qml        grey panel, recess with blue outline, pockets, buttons
@@ -25,6 +27,11 @@ quickshell/
     ChannelGrid.qml      pages of 4×3 tiles, arrows, scrolling
     ChannelTile.qml      one slot: empty style, hover glow, channel art
     PageArrow.qml        blue triangle arrow
+    ChannelPreview.qml   zoomed channel preview
+    PillButton.qml       rounded preview/board buttons
+    MessageBoard.qml     message board overlay
+  overlays/              separate layer surfaces (import qs.overlays)
+    Toasts.qml           notification toasts
   channels/              tile art per channel type (import qs.channels)
     ChannelArt.qml       picks the art component for a channel type
     AppArt.qml           icon + name on a tinted background, glyph fallback
@@ -57,7 +64,7 @@ keep the right proportions instead of stretching.
 | Target | Function | Meaning |
 |---|---|---|
 | `shell` | `home()` | Called by `wii home` (menu animations hook in here) |
-| `shell` | `toast(title, body)` | Small popup message (filled in in phase 7) |
+| `shell` | `toast(title, body)` | Post a message (toast + board) |
 | `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` (phase 8) |
 
 ## Customising

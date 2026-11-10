@@ -14,6 +14,7 @@ Singleton {
     signal closePreviews()
     signal openPreview(int slot)
     signal startPreview()
+    signal openBoard()
 
     // Next filled slot in direction dir (+1/-1), wrapping around.
     function neighbour(slot: int, dir: int): int {
@@ -36,6 +37,7 @@ Singleton {
         function open(slot: int): void { root.page = Math.floor(slot / 12); root.openPreview(slot) }
         function close(): void { root.closePreviews() }
         function start(): void { root.startPreview() }
+        function board(): void { root.openBoard() }
         function state(): string { return JSON.stringify({ page: root.page, pageCount: root.pageCount }) }
     }
 }

@@ -9,6 +9,10 @@ return function(o)
   hl.env("HYPRCURSOR_SIZE", tostring(o.cursor_size))
   hl.env("WIIPERLAND_ROOT", o.root)
 
+  -- dev/nested.sh: give children a private session bus
+  local dev_bus = os.getenv("WIIPERLAND_DEV_BUS")
+  if dev_bus and dev_bus ~= "" then hl.env("DBUS_SESSION_BUS_ADDRESS", dev_bus) end
+
   -- The Wii look is bright: ask apps for their light theme, without touching
   -- the global GNOME/gsettings preference.
   if o.light_apps then
