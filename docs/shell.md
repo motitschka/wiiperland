@@ -10,6 +10,8 @@ quickshell/
   services/              singletons (import qs.services)
     Theme.qml            colours, fonts, asset paths, brand label
     Time.qml             clock state (12/24h, blinking colon, date text)
+    Config.qml           loads and watches config.json
+    Menu.qml             menu state (page, ...) + `menu` IPC target
   home/                  the Wii Menu (import qs.home)
     HomeScreen.qml       full-screen layer surface under all windows
     BottomBar.qml        grey panel, recess with blue outline, pockets, buttons
@@ -17,6 +19,11 @@ quickshell/
     SegmentDigit.qml     thin seven-segment digit made of rounded bars
     WiiButton.qml        round glossy button with blue ring, hover and glow
     MailIcon.qml         envelope drawing
+    ChannelGrid.qml      pages of 4×3 tiles, arrows, scrolling
+    ChannelTile.qml      one slot: empty style, hover glow, channel art
+    PageArrow.qml        blue triangle arrow
+  channels/              tile art per channel type (import qs.channels)
+    AppArt.qml           icon + name on a tinted background, glyph fallback
   assets/
     fonts/               M PLUS Rounded 1c (OFL)
     img/stripes.png      1×6 px tile for the striped background
@@ -46,9 +53,8 @@ keep the right proportions instead of stretching.
 | `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` (phase 8) |
 
 ## Customising
-- `Theme.brand`: the word embossed on the home button and empty tiles
-  (default `Hypr`). This becomes a setting in `config.json` in phase 3.
-- `Time.use24h`: 24-hour clock.
+See [channels.md](channels.md) for `config.json` (brand label, 24-hour
+clock, channels).
 
 ## Tested
 - Nested Hyprland at 1280×720: bar, recess, blue outline, pockets, buttons,

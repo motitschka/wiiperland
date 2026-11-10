@@ -27,9 +27,6 @@ Singleton {
     readonly property url assets: Qt.resolvedUrl("../assets/")
     function asset(path: string): url { return Qt.resolvedUrl("../assets/" + path) }
 
-    // Label shown embossed on empty tiles and on the home button.
-    property string brand: "Hypr"
-
     property list<QtObject> _fonts: [
         FontLoader { id: regular; source: Qt.resolvedUrl("../assets/fonts/MPLUSRounded1c-Regular.ttf") },
         FontLoader { id: medium; source: Qt.resolvedUrl("../assets/fonts/MPLUSRounded1c-Medium.ttf") },

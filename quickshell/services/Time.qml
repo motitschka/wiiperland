@@ -4,7 +4,7 @@ import Quickshell
 
 // Wall clock used by the bottom bar.
 Singleton {
-    property bool use24h: false
+    readonly property bool use24h: Config.clock24h
     readonly property date now: clock.date
     readonly property int hours12: { const h = now.getHours() % 12; return h === 0 ? 12 : h }
     readonly property int hours: use24h ? now.getHours() : hours12

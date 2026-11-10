@@ -1,0 +1,65 @@
+{
+  "brand": "Hypr",
+  "clock24h": false,
+  "sounds": true,
+  "pages": 4,
+  "channels": [
+    {
+      "type": "app",
+      "app": "org.gnome.Nautilus",
+      "name": "Files",
+      "exec": "nautilus --new-window",
+      "color": "#5aa9e6"
+    },
+    {
+      "type": "app",
+      "app": "firefox",
+      "name": "Internet",
+      "color": "#ff9a3c"
+    },
+    {
+      "type": "photos",
+      "name": "Photo Channel",
+      "dir": "~/Pictures"
+    },
+    {
+      "type": "app",
+      "app": "kitty",
+      "name": "Terminal",
+      "exec": "kitty",
+      "icon": "utilities-terminal",
+      "color": "#4b4b4b",
+      "glyph": ">_"
+    },
+    {
+      "type": "forecast",
+      "name": "Forecast Channel"
+    },
+    {
+      "type": "music",
+      "name": "Music Channel",
+      "app": "vlc"
+    },
+    {
+      "type": "app",
+      "app": "codium",
+      "name": "Code",
+      "color": "#3c8dde"
+    },
+    {
+      "type": "app",
+      "app": "steam",
+      "name": "Steam",
+      "color": "#2a475e"
+    },
+    null,
+    null,
+    null,
+    {
+      "type": "app",
+      "app": "org.gnome.Settings",
+      "name": "Settings",
+      "color": "#9a9a9a"
+    }
+  ]
+}

@@ -35,6 +35,13 @@ PanelWindow {
         visible: opacity > 0
         Behavior on opacity { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
 
+        ChannelGrid {
+            id: grid
+            anchors.fill: parent
+            hh: win.height
+            onActivated: (ch, tile) => console.log("activate", ch.name)
+        }
+
         BottomBar {
             anchors.fill: parent
             unread: 0

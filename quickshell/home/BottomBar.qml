@@ -151,7 +151,7 @@ Item {
         onClicked: root.homeClicked()
         Text {
             anchors.centerIn: parent
-            text: Theme.brand
+            text: Config.brand
             font.family: Theme.fontBold; font.pixelSize: parent.height * 0.3; font.weight: Font.Bold
             color: "#a3a3a3"
             style: Text.Raised; styleColor: "#ffffff"

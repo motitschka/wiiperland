@@ -43,7 +43,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **2. Home screen shell**: Quickshell skeleton, theme singleton, striped
       background, bottom bar with curved notch, thin segment clock, date,
       round corner buttons. Docs: `docs/shell.md`.
-- [ ] **3. Channel grid**: 4×3 tiles, empty slot style, hover glow and scale,
+- [x] **3. Channel grid**: 4×3 tiles, empty slot style, hover glow and scale,
       pages with arrow buttons and scrolling, `channels.json`.
       Docs: `docs/channels.md`.
 - [ ] **4. Channel preview and launch**: zoom transition, preview screen,

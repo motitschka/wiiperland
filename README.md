@@ -14,3 +14,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 - [Development and testing](docs/development.md)
 - [Hyprland config](docs/hyprland.md)
 - [Quickshell shell](docs/shell.md)
+- [Channels and config.json](docs/channels.md)
