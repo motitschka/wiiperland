@@ -14,6 +14,7 @@ current Wayland session that uses this repo's config.
   mkdir -p ~/qs-prefix && cd ~/qs-prefix
   for u in $(pacman -Sp quickshell cpptrace jemalloc libdwarf); do curl -sfLO "$u"; done
   for f in *.pkg.tar.zst; do bsdtar -xf "$f"; done
+  ln -sf quickshell usr/bin/qs   # the packaged symlink is absolute
   export QS_PREFIX=~/qs-prefix
   ```
 
@@ -25,6 +26,8 @@ current Wayland session that uses this repo's config.
 | `dev/run.sh cmd …` | Run a program inside the nested instance. |
 | `dev/shot.sh [name]` | Screenshot the nested instance to `dev/screenshots/<name>.png`. |
 | `dev/stop.sh` | Stop the nested instance. |
+
+Put machine-specific settings such as `QS_PREFIX=...` in `dev/local.env` (git-ignored).
 
 Logs are written to `dev/.nested/` (git-ignored).
 

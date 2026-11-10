@@ -7,9 +7,10 @@ thin clock, zoom-in channel previews, soft UI sounds and a HOME Menu overlay.
 > Work in progress. See [ROADMAP.md](ROADMAP.md) for status.
 
 All artwork and sounds are original. The font is
-[M PLUS Rounded 1c](assets/fonts/OFL.txt) (SIL OFL). This project is not
+[M PLUS Rounded 1c](quickshell/assets/fonts/OFL.txt) (SIL OFL). This project is not
 affiliated with Nintendo, and no Nintendo assets are included.
 
 ## Docs
 - [Development and testing](docs/development.md)
 - [Hyprland config](docs/hyprland.md)
+- [Quickshell shell](docs/shell.md)

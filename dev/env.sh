@@ -4,6 +4,10 @@ WP_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WP_STATE="$WP_ROOT/dev/.nested"
 mkdir -p "$WP_STATE"
 
+# Machine-specific settings (git-ignored), e.g. QS_PREFIX=...
+# shellcheck disable=SC1091
+[[ -f "$WP_ROOT/dev/local.env" ]] && source "$WP_ROOT/dev/local.env"
+
 # Optional: use a Quickshell build extracted somewhere (no root needed).
 # QS_PREFIX=/path/to/extracted/root  (containing usr/bin/qs)
 if [[ -n "${QS_PREFIX:-}" ]]; then

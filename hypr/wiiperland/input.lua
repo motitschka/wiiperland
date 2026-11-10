@@ -3,6 +3,8 @@ return function(o)
   local dev_mode = os.getenv("WIIPERLAND_DEV_MODE")
   if dev_mode then
     hl.monitor({ output = "", mode = dev_mode, position = "auto", scale = 1 })
+    -- dev/nested.sh starts Hyprland directly, not through start-hyprland
+    hl.config({ misc = { disable_watchdog_warning = true } })
   else
     hl.monitor(o.monitor)
   end

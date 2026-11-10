@@ -15,9 +15,9 @@ Mii art, system sounds and music are **not** included.
 | Compositor config | Hyprland 0.57 Lua config | `hypr/` |
 | Shell (home menu, bar, overlays, notifications, lock) | Quickshell (QML) | `quickshell/` |
 | Channel list and settings | JSON, read by Quickshell | `config/` → `~/.config/wiiperland/` |
-| Sounds | Generated WAVs (original), played with `pw-play` | `assets/sounds/` |
-| Font | M PLUS Rounded 1c (OFL) | `assets/fonts/` |
-| Cursor | Original hyprcursor/XCursor hand pointer | `assets/cursor/` |
+| Sounds | Generated WAVs (original), played with `pw-play` | `quickshell/assets/sounds/` |
+| Font | M PLUS Rounded 1c (OFL) | `quickshell/assets/fonts/` |
+| Cursor | Original hyprcursor/XCursor hand pointer | `assets/cursor/` (build input) |
 | Dev harness | Nested Hyprland and grim screenshots | `dev/` |
 
 ### Interaction model
@@ -40,7 +40,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **1. Hyprland base**: Lua config split into modules (look, animations,
       binds, rules, autostart), Wii palette, zoom-style animations, workspace 1
       kept as the home menu. Docs: `docs/hyprland.md`.
-- [ ] **2. Home screen shell**: Quickshell skeleton, theme singleton, striped
+- [x] **2. Home screen shell**: Quickshell skeleton, theme singleton, striped
       background, bottom bar with curved notch, thin segment clock, date,
       round corner buttons. Docs: `docs/shell.md`.
 - [ ] **3. Channel grid**: 4×3 tiles, empty slot style, hover glow and scale,
