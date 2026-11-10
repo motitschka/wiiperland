@@ -22,8 +22,13 @@ Singleton {
     readonly property var channels: data.channels ?? []
     readonly property int pageCount: Math.max(data.pages ?? 4, Math.ceil(channels.length / 12), 1)
 
+    readonly property string repoRoot: Quickshell.env("WIIPERLAND_ROOT") || Quickshell.shellDir + "/.."
+
+    // "~" -> $HOME, "${VAR}" -> environment (WIIPERLAND_ROOT always known)
     function expand(path: string): string {
-        return path && path.startsWith("~") ? home + path.slice(1) : path
+        if (!path) return path
+        let p = path.startsWith("~") ? home + path.slice(1) : path
+        return p.replace(/\$\{(\w+)\}/g, (m, v) => v === "WIIPERLAND_ROOT" ? repoRoot : (Quickshell.env(v) ?? ""))
     }
 
     FileView {

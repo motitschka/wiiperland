@@ -12,6 +12,9 @@ quickshell/
     Time.qml             clock state (12/24h, blinking colon, date text)
     Config.qml           loads and watches config.json
     Menu.qml             menu state (page, ...) + `menu` IPC target
+    Launcher.qml         desktop entries, running detection, start/resume
+    Weather.qml          wttr.in fetcher for the Forecast Channel
+    Sound.qml            UI sounds
   home/                  the Wii Menu (import qs.home)
     HomeScreen.qml       full-screen layer surface under all windows
     BottomBar.qml        grey panel, recess with blue outline, pockets, buttons
@@ -23,7 +26,12 @@ quickshell/
     ChannelTile.qml      one slot: empty style, hover glow, channel art
     PageArrow.qml        blue triangle arrow
   channels/              tile art per channel type (import qs.channels)
+    ChannelArt.qml       picks the art component for a channel type
     AppArt.qml           icon + name on a tinted background, glyph fallback
+    PhotoArt.qml         photo collage from a folder
+    ForecastArt.qml      weather tile / 3-day preview
+    WeatherIcon.qml      drawn weather icons
+    MusicArt.qml         MPRIS now playing + controls
   assets/
     fonts/               M PLUS Rounded 1c (OFL)
     img/stripes.png      1×6 px tile for the striped background

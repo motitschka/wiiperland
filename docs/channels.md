@@ -32,7 +32,7 @@ file is watched, so saving it updates the menu immediately.
 ## Channel fields
 | Field | Meaning |
 |---|---|
-| `type` | `app` (default art), `photos`, `forecast`, `music` (live art, phase 5) |
+| `type` | `app` (default), or a live type: `photos`, `forecast`, `music` (see below) |
 | `app` | Desktop entry id or name (e.g. `firefox`, `org.gnome.Nautilus`). Supplies icon, name and launch command. |
 | `name` | Label on the tile (overrides the desktop entry's name) |
 | `exec` | Command to run (overrides the desktop entry's command) |
@@ -42,6 +42,42 @@ file is watched, so saving it updates the menu immediately.
 | `description` | Line under the name on the preview screen (default: the desktop entry comment) |
 | `class` | Window app-id regex used to tell whether the channel is running (see [preview-and-launch.md](preview-and-launch.md)) |
 
+## Live channel types
+
+### `photos`: Photo Channel
+A collage of pictures from `dir` (default `~/Pictures`, not recursive). It
+shuffles every 7 seconds; the preview shows five. Start opens the folder with
+`xdg-open` unless `exec` is set.
+
+```json
+{ "type": "photos", "name": "Photo Channel", "dir": "~/Pictures/Screenshots" }
+```
+
+### `forecast`: Forecast Channel
+Current weather on the tile; place, conditions and a three-day forecast on
+the preview. Data comes from [wttr.in](https://wttr.in) through `curl` every
+30 minutes. Settings go in a top-level `forecast` object:
+
+```json
+"forecast": { "location": "Oslo", "units": "metric", "enabled": true }
+```
+| Key | Default | Meaning |
+|---|---|---|
+| `location` | `""` | City or place. Empty lets wttr.in guess from your IP address. |
+| `units` | `"metric"` | `"metric"` (°C) or `"imperial"` (°F) |
+| `enabled` | `true` | `false` stops all network requests |
+
+Icons (sun, partly cloudy, cloud, fog, rain, snow, storm) are drawn in QML.
+
+### `music`: Music Channel
+Shows what any MPRIS player is playing (the playing one first): cover art,
+title and artist, with previous / play-pause / next buttons on the preview.
+Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
+
+### Paths
+`dir` and other paths understand `~` and `${VAR}` (environment variables;
+`${WIIPERLAND_ROOT}` is always the repo folder).
+
 ## Navigation
 - Arrows at the screen edges, mouse wheel or touchpad scroll flip pages.
 - Hovering a tile gives it the pulsing blue outline.
@@ -49,6 +85,9 @@ file is watched, so saving it updates the menu immediately.
   `bin/wii ipc menu state` (prints `{"page":…,"pageCount":…}`).
 
 ## Tested
+- Live tiles in the nested session: photos from a folder (collage on tile and
+  preview), real wttr.in weather (tile + 3-day preview), a playing MPRIS
+  player picked up with controls on the preview.
 - Default config: 9 channels and 3 empty slots on page 1, 4 pages, arrows
   shown or hidden at the ends.
 - Missing icons fall back to the glyph badge.

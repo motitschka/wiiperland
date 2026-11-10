@@ -20,7 +20,11 @@ Singleton {
     function command(channel: var): list<string> {
         if (channel.exec) return ["sh", "-c", channel.exec]
         const e = entryFor(channel)
-        return e ? e.command : []
+        if (e) return e.command
+        // sensible defaults for the built-in channel types
+        if (channel.type === "photos") return ["xdg-open", Config.expand(channel.dir ?? "~/Pictures")]
+        if (channel.type === "forecast") return ["xdg-open", "https://wttr.in/" + encodeURIComponent(Weather.location)]
+        return []
     }
 
     // Regex matched against Wayland app ids of open windows.

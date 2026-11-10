@@ -49,7 +49,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **4. Channel preview and launch**: zoom transition, preview screen,
       `Wii Menu` / `Start`, launch on an empty workspace, focus if already
       running, running indicator.
-- [ ] **5. Live channel art**: Photo (slideshow from `~/Pictures`), Forecast
+- [x] **5. Live channel art**: Photo (slideshow from `~/Pictures`), Forecast
       (weather), Music (MPRIS now playing), Clock/Calendar, plain app tiles
       with icon art.
 - [ ] **6. Sounds**: original hover, click, back and start sounds, with a
