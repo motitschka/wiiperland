@@ -14,6 +14,7 @@ Item {
     readonly property var entry: Launcher.entryFor(channel)
     readonly property bool running: !empty && Launcher.isRunning(channel)
     readonly property bool hovered: mouse.containsMouse && !empty
+    onHoveredChanged: if (hovered) Sound.play("tick")
     signal activated(int slot, Item tile)
 
     readonly property real r: height * 0.16

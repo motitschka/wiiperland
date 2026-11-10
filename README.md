@@ -16,3 +16,4 @@ affiliated with Nintendo, and no Nintendo assets are included.
 - [Quickshell shell](docs/shell.md)
 - [Channels and config.json](docs/channels.md)
 - [Channel preview and launching](docs/preview-and-launch.md)
+- [Sounds](docs/sounds.md)

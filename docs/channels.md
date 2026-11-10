@@ -25,7 +25,8 @@ file is watched, so saving it updates the menu immediately.
 |---|---|---|
 | `brand` | `"Hypr"` | Word embossed on empty slots and on the home button |
 | `clock24h` | `false` | 24-hour clock (hides AM/PM) |
-| `sounds` | `true` | UI sounds (phase 6) |
+| `sounds` | `true` | UI sounds (see [sounds.md](sounds.md)) |
+| `soundVolume` | `0.6` | 0 to 1 |
 | `pages` | `4` | Minimum number of pages (each holds 12 slots). More are added automatically if `channels` is longer. |
 | `channels` | `[]` | Slots in order: page 1 is slots 1–12, left to right, top to bottom. `null` leaves a slot empty. |
 

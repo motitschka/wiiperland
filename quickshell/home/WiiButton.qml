@@ -1,4 +1,5 @@
 import QtQuick
+import qs.services
 
 // Round glossy corner button with a blue ring (home button, mail button).
 Item {
@@ -10,6 +11,7 @@ Item {
 
     width: radius * 2; height: radius * 2
     readonly property bool hovered: mouse.containsMouse
+    onHoveredChanged: if (hovered) Sound.play("tick")
     scale: mouse.pressed ? 0.95 : hovered ? 1.05 : 1
     Behavior on scale { NumberAnimation { duration: 140; easing.type: Easing.OutBack } }
 
@@ -66,6 +68,6 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.clicked()
+        onClicked: { Sound.play("click"); root.clicked() }
     }
 }

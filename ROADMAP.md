@@ -52,7 +52,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **5. Live channel art**: Photo (slideshow from `~/Pictures`), Forecast
       (weather), Music (MPRIS now playing), Clock/Calendar, plain app tiles
       with icon art.
-- [ ] **6. Sounds**: original hover, click, back and start sounds, with a
+- [x] **6. Sounds**: original hover, click, back and start sounds, with a
       setting to turn them off.
 - [ ] **7. Message board**: notification server, mail button glow and count,
       board panel, popups.

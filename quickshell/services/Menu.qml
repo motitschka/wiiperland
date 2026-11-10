@@ -7,6 +7,7 @@ import Quickshell.Io
 Singleton {
     id: root
     property int page: 0
+    onPageChanged: Sound.play("page")
     readonly property int pageCount: Config.pageCount
     onPageCountChanged: if (page >= pageCount) page = Math.max(0, pageCount - 1)
 

@@ -39,7 +39,7 @@ Item {
     }
     function step(dir: int): void {
         const n = Menu.neighbour(slot, dir)
-        if (n !== slot && n >= 0) { slot = n; Sound.play("tick") }
+        if (n !== slot && n >= 0) { slot = n; Sound.play("page") }
     }
 
     NumberAnimation {

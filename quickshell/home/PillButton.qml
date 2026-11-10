@@ -10,6 +10,7 @@ Item {
 
     width: hh * 0.3; height: hh * 0.085
     readonly property bool hovered: mouse.containsMouse
+    onHoveredChanged: if (hovered) Sound.play("tick")
     scale: mouse.pressed ? 0.95 : hovered ? 1.04 : 1
     Behavior on scale { NumberAnimation { duration: 140; easing.type: Easing.OutBack } }
 
