@@ -28,7 +28,7 @@ Item {
     }
     // big faint icon echo in the corner
     IconImage {
-        visible: root.iconSrc !== ""
+        visible: root.iconSrc !== "" && !root.large
         source: root.iconSrc
         width: parent.height * 1.1; height: width
         x: parent.width - width * 0.62; y: -height * 0.12
@@ -74,6 +74,14 @@ Item {
             font.pixelSize: root.height * (root.large ? 0.09 : 0.15)
             color: "#7d8796"
             style: Text.Raised; styleColor: "#ffffff"
+        }
+        Text {
+            visible: root.large && text !== ""
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: root.channel.description ?? (root.entry ? root.entry.comment : "")
+            font.family: Theme.font
+            font.pixelSize: root.height * 0.035
+            color: "#98a0ab"
         }
     }
 }

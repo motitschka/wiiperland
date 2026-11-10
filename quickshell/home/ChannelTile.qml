@@ -8,11 +8,13 @@ import qs.channels
 Item {
     id: root
     property var channel: null
+    property int slot: -1
     property real s: 1
     readonly property bool empty: !channel
-    readonly property var entry: channel && channel.app ? DesktopEntries.heuristicLookup(channel.app) : null
+    readonly property var entry: Launcher.entryFor(channel)
+    readonly property bool running: !empty && Launcher.isRunning(channel)
     readonly property bool hovered: mouse.containsMouse && !empty
-    signal activated(var channel, Item tile)
+    signal activated(int slot, Item tile)
 
     readonly property real r: height * 0.16
     readonly property real bw: Math.max(1.5, height * 0.022)
@@ -53,14 +55,18 @@ Item {
             style: Text.Sunken; styleColor: "#f4f4f4"
         }
 
-        Loader {
+        ChannelArt {
             anchors.fill: parent
-            active: !root.empty
-            sourceComponent: root.channel && root.channel.type === "app" ? appArt : appArt
+            channel: root.channel
         }
-        Component {
-            id: appArt
-            AppArt { channel: root.channel; entry: root.entry; s: root.s }
+
+        // running indicator
+        Rectangle {
+            visible: root.running
+            width: parent.height * 0.09; height: width; radius: width / 2
+            anchors { right: parent.right; bottom: parent.bottom; margins: parent.height * 0.08 }
+            color: Theme.blue
+            border.color: "#ffffff"; border.width: Math.max(1, width * 0.18)
         }
 
         // glossy top edge
@@ -80,6 +86,6 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: root.empty ? Qt.ArrowCursor : Qt.PointingHandCursor
-        onClicked: if (!root.empty) root.activated(root.channel, root)
+        onClicked: if (!root.empty) root.activated(root.slot, root)
     }
 }

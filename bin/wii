@@ -28,7 +28,7 @@ case "$cmd" in
     ipc lock lock || loginctl lock-session ;;
   launch)
     [[ $# -gt 0 ]] || { echo "usage: wii launch <cmd...>" >&2; exit 2; }
-    hyprctl dispatch "hl.dsp.exec_cmd($(lua_str "$*"), { workspace = \"empty\" })" >/dev/null ;;
+    hyprctl dispatch "hl.dsp.exec_cmd($(lua_str "$(printf '%q ' "$@")"), { workspace = \"empty\" })" >/dev/null ;;
   screenshot)
     dir="$HOME/Pictures/Screenshots"; mkdir -p "$dir"
     f="$dir/$(date +%Y-%m-%d_%H-%M-%S).png"

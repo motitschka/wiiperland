@@ -9,11 +9,13 @@ Singleton {
     id: root
 
     readonly property string home: Quickshell.env("HOME")
-    readonly property string userPath: (Quickshell.env("XDG_CONFIG_HOME") || home + "/.config") + "/wiiperland/config.json"
+    readonly property string userPath: Quickshell.env("WIIPERLAND_CONFIG")
+        || (Quickshell.env("XDG_CONFIG_HOME") || home + "/.config") + "/wiiperland/config.json"
     readonly property string defaultPath: Quickshell.shellDir + "/../config/config.json"
 
     property var data: ({})
     property bool _userLoaded: false
+    property bool _useFallback: false
     readonly property string brand: data.brand ?? "Hypr"
     readonly property bool clock24h: data.clock24h ?? false
     readonly property bool sounds: data.sounds ?? true
@@ -31,12 +33,11 @@ Singleton {
         printErrors: false
         onFileChanged: reload()
         onLoaded: { root._userLoaded = true; root.parse(text(), root.userPath) }
-        onLoadFailed: fallback.reload()
+        onLoadFailed: { root._userLoaded = false; root._useFallback = true }
     }
     FileView {
         id: fallback
-        path: root.defaultPath
-        blockLoading: false
+        path: root._useFallback ? root.defaultPath : ""
         onLoaded: if (!root._userLoaded) root.parse(text(), root.defaultPath)
     }
 

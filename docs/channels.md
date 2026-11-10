@@ -1,6 +1,7 @@
 # Channels and `config.json`
 
-The menu reads `~/.config/wiiperland/config.json`. If that file doesn't exist
+The menu reads `~/.config/wiiperland/config.json` (or the file named by
+`$WIIPERLAND_CONFIG`). If that file doesn't exist
 it falls back to the repo's [`config/config.json`](../config/config.json). The
 file is watched, so saving it updates the menu immediately.
 
@@ -38,7 +39,8 @@ file is watched, so saving it updates the menu immediately.
 | `icon` | Icon theme name (overrides the desktop entry's icon) |
 | `glyph` | Text drawn on a coloured badge when the icon isn't found (default: first letter of the name) |
 | `color` | Tint of the tile background and badge |
-| `class` | Window class regex used to tell whether the channel is already running (phase 4) |
+| `description` | Line under the name on the preview screen (default: the desktop entry comment) |
+| `class` | Window app-id regex used to tell whether the channel is running (see [preview-and-launch.md](preview-and-launch.md)) |
 
 ## Navigation
 - Arrows at the screen edges, mouse wheel or touchpad scroll flip pages.

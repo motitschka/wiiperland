@@ -8,6 +8,9 @@ source "$(dirname "$0")/env.sh"
 
 export WIIPERLAND_ROOT="$WP_ROOT"
 export XDG_CURRENT_DESKTOP=Hyprland
+# Use the dev channel list unless told otherwise (apps that don't attach to
+# an already running instance in your real session).
+export WIIPERLAND_CONFIG="${WIIPERLAND_CONFIG:-$WP_ROOT/dev/test-config.json}"
 export WIIPERLAND_DEV_MODE="${1:-1280x720}"
 Hyprland -c "$WP_ROOT/hypr/hyprland.lua" >"$WP_STATE/hyprland.log" 2>&1 &
 pid=$!

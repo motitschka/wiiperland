@@ -1,0 +1,13 @@
+{
+  "brand": "Hypr",
+  "pages": 2,
+  "channels": [
+    { "type": "app", "name": "Text Editor", "exec": "gnome-text-editor --standalone", "class": "org.gnome.TextEditor", "icon": "org.gnome.TextEditor", "color": "#e5a50a" },
+    { "type": "app", "name": "Retro Term", "exec": "cool-retro-term", "class": "cool-retro-term", "glyph": ">_", "color": "#3a7d3a" },
+    { "type": "photos", "name": "Photo Channel", "dir": "~/Pictures" },
+    { "type": "forecast", "name": "Forecast Channel" },
+    { "type": "music", "name": "Music Channel" },
+    null, null, null, null, null, null,
+    { "type": "app", "app": "org.gnome.Settings", "name": "Settings", "color": "#9a9a9a" }
+  ]
+}

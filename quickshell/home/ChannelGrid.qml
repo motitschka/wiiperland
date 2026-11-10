@@ -7,7 +7,7 @@ Item {
     property real hh: 720
     readonly property int page: Menu.page
     readonly property int pageCount: Menu.pageCount
-    signal activated(var channel, Item tile)
+    signal activated(int slot, Item tile)
 
     readonly property real tileH: hh * 0.148
     readonly property real tileW: Math.max(hh * 0.27, Math.min(width * 0.19, hh * 0.33))
@@ -15,6 +15,10 @@ Item {
     readonly property real gapY: hh * 0.016
     readonly property real gridTop: hh * 0.16
 
+    function tileAt(slot: int): Item {
+        const pg = pages.itemAt(Math.floor(slot / 12))
+        return pg ? pg.tiles.itemAt(slot % 12) : null
+    }
     function next(): void { Menu.next() }
     function prev(): void { Menu.prev() }
 
@@ -25,6 +29,7 @@ Item {
         Behavior on x { NumberAnimation { duration: 450; easing.type: Easing.OutCubic } }
 
         Repeater {
+            id: pages
             model: root.pageCount
             Grid {
                 id: grid
@@ -34,14 +39,17 @@ Item {
                 y: root.gridTop
                 columns: 4
                 columnSpacing: root.gapX; rowSpacing: root.gapY
+                property alias tiles: tileRep
                 Repeater {
+                    id: tileRep
                     model: 12
                     ChannelTile {
                         required property int index
                         width: root.tileW; height: root.tileH
                         s: root.hh / 720
-                        channel: Config.channels[grid.pageIndex * 12 + index] ?? null
-                        onActivated: (ch, tile) => root.activated(ch, tile)
+                        slot: grid.pageIndex * 12 + index
+                        channel: Config.channels[slot] ?? null
+                        onActivated: (slot, tile) => root.activated(slot, tile)
                     }
                 }
             }

@@ -46,7 +46,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **3. Channel grid**: 4×3 tiles, empty slot style, hover glow and scale,
       pages with arrow buttons and scrolling, `channels.json`.
       Docs: `docs/channels.md`.
-- [ ] **4. Channel preview and launch**: zoom transition, preview screen,
+- [x] **4. Channel preview and launch**: zoom transition, preview screen,
       `Wii Menu` / `Start`, launch on an empty workspace, focus if already
       running, running indicator.
 - [ ] **5. Live channel art**: Photo (slideshow from `~/Pictures`), Forecast
