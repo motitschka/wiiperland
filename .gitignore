@@ -1,0 +1,4 @@
+dev/.nested/
+*.log
+__pycache__/
+dev/screenshots/
