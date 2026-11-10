@@ -61,7 +61,7 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - [x] **9. Lock screen and startup screen**: "click to continue" splash and a
       session lock in the same style.
 - [x] **10. Cursor**: original hand pointer theme (hyprcursor and XCursor).
-- [ ] **11. Install / uninstall**: dependency check, backups of the existing
+- [x] **11. Install / uninstall**: dependency check, backups of the existing
       config, symlinks, README with screenshots, full end-to-end test.
 
 ## Testing approach
@@ -69,3 +69,17 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - `dev/nested.sh` starts a nested Hyprland window using this repo's config.
   `dev/shot.sh` grabs a screenshot into `dev/screenshots/` for visual checks.
 - Quickshell logs are checked for QML errors and warnings after every change.
+
+## Status
+All phases are done and tested in a nested Hyprland session. Still to check on
+real hardware (they can't be driven from a nested session):
+- tapping SUPER alone to go home, and the keyboard shortcuts inside the
+  preview, board and HOME Menu;
+- unlocking with a real password (PAM);
+- power buttons and the volume slider (they'd act on the real machine).
+
+## Ideas for later
+- Animated channel banners (per-channel QML art packs).
+- A Settings channel for `config.json` (drag tiles to reorder).
+- Calendar channel, disc/USB channel for removable drives.
+- Optional original background music loop for the menu.

@@ -22,7 +22,8 @@ if [[ "${WP_SHARED_DBUS:-0}" != 1 ]]; then
   echo "$bus_pid" >"$WP_STATE/dbus.pid"
   export WIIPERLAND_DEV_BUS="$bus_addr"
 fi
-Hyprland -c "$WP_ROOT/hypr/hyprland.lua" >"$WP_STATE/hyprland.log" 2>&1 &
+# WP_ENTRY: test another entry point, e.g. one written by install.sh
+Hyprland -c "${WP_ENTRY:-$WP_ROOT/hypr/hyprland.lua}" >"$WP_STATE/hyprland.log" 2>&1 &
 pid=$!
 
 for _ in $(seq 60); do
