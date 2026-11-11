@@ -78,9 +78,35 @@ real hardware (they can't be driven from a nested session):
 - unlocking with a real password (PAM);
 - power buttons and the volume slider (they'd act on the real machine).
 
-## Next: Wii fidelity
-The agreed plan for making it feel like the real Wii menu is in
-[PLAN.md](PLAN.md).
+## Wii fidelity
+Making it feel like the real Wii menu. The agreed plan, with every decision
+and the reference notes, is in [PLAN.md](PLAN.md). Same rule as above: each
+step is built, tested in `dev/nested.sh 1920x1200`, documented and pushed
+before the next one starts.
+
+- [ ] **F1. Asset folder**: `~/.config/wiiperland/assets/` (sounds, music,
+      fonts, images, banners) overrides the built-in files through one
+      resolver. Docs: `docs/assets.md`.
+- [ ] **F2. Cursor**: redrawn hand (white, dark grey outline, blue "1"
+      badge), Wii-sized on the menu and normal size in apps.
+- [ ] **F3. Menu fidelity pass**: lighter bar with a thin pale-blue recess
+      line, bigger clock, `Fri 4/18` date, edge-to-edge grid with peeking
+      neighbour pages, name bubbles instead of the hover grow, the
+      "<brand> Menu" label on arrival.
+- [ ] **F4. Preview rebuild**: rounded "TV" panel on black, blue title tab,
+      big blue arrows, beige band, glossy pills, greyed-out Start.
+- [ ] **F5. Channel banners**: full-bleed image / animated / video banners
+      and jingles from the asset folder, redesigned built-in art for the
+      rest.
+- [ ] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.
+- [ ] **F7. Arranging channels**: hold and drag to swap, click an empty
+      slot to add, right-click to move or remove.
+- [ ] **F8. Sound and music**: retuned UI sounds, menu music that fades and
+      ducks.
+- [ ] **F9. Motion**: timings measured from the reference recording.
+- [ ] **F10. Welcome screen**: once per calendar day, replaces the startup
+      screen.
+- [ ] **F11. Wrap-up**: README, docs, screenshots, full install test.
 
 ## Ideas for later
 - Animated channel banners (per-channel QML art packs).
