@@ -32,7 +32,10 @@
       "type": "music",
       "name": "Music Channel"
     },
-    null,
+    {
+      "type": "disc",
+      "name": "Disc Channel"
+    },
     null,
     null,
     null,

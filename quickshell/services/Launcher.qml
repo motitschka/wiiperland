@@ -33,6 +33,8 @@ Singleton {
         if (e) return e.command
         // sensible defaults for the built-in channel types
         if (channel.type === "photos") return ["xdg-open", Config.expand(channel.dir ?? "~/Pictures")]
+        // the Disc Channel opens what is plugged in, in the file manager
+        if (channel.type === "disc") return Disc.current ? ["xdg-open", Disc.current.path] : []
         if (channel.type === "forecast") return ["xdg-open", "https://wttr.in/" + encodeURIComponent(Weather.location)]
         return []
     }

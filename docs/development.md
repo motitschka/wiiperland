@@ -72,6 +72,10 @@ Logs are written to `dev/.nested/` (git-ignored).
 - `WIIPERLAND_ASSETS=dev/.nested/assets`: an asset folder for tests (empty
   unless a test fills it), so your own files in `~/.config/wiiperland/assets`
   can't end up in a screenshot;
+- `WIIPERLAND_MEDIA=dev/.nested/media`: where the Disc Channel looks for
+  plugged-in drives, instead of `/run/media/$USER`. Make a sub-folder there
+  to "insert" one (`mkdir dev/.nested/media/STICK`); its size is that of
+  your own disk;
 - `WIIPERLAND_SILENT=1`: UI sounds are logged, not played. Start with
   `WP_SOUND=1 dev/nested.sh` to hear them.
 
@@ -87,6 +91,7 @@ nested shell.
 | `WIIPERLAND_CONFIG` | Path of `config.json` to use. |
 | `WIIPERLAND_STATE` | Folder for saved state (default `~/.local/state/wiiperland`). |
 | `WIIPERLAND_ASSETS` | Your asset folder (default `~/.config/wiiperland/assets`), see [assets.md](assets.md). |
+| `WIIPERLAND_MEDIA` | Folder the Disc Channel watches (default `/run/media/$USER`). |
 | `WIIPERLAND_SILENT` | `1` logs UI sounds instead of playing them. |
 
 ## Good to know

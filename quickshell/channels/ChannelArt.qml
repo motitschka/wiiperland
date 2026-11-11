@@ -27,6 +27,7 @@ Item {
             : root.type === "photos" ? photoArt
             : root.type === "forecast" ? forecastArt
             : root.type === "music" ? musicArt
+            : root.type === "disc" ? discArt
             : appArt
     }
 
@@ -40,5 +41,6 @@ Item {
     Component { id: appArt; AppArt { channel: root.channel; entry: root.entry; large: root.large; playing: root.playing } }
     Component { id: photoArt; PhotoArt { channel: root.channel; large: root.large; playing: root.playing } }
     Component { id: forecastArt; ForecastArt { channel: root.channel; large: root.large; playing: root.playing } }
+    Component { id: discArt; DiscArt { channel: root.channel; large: root.large; playing: root.playing } }
     Component { id: musicArt; MusicArt { channel: root.channel; large: root.large; playing: root.playing } }
 }

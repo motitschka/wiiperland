@@ -38,7 +38,7 @@ file is watched, so saving it updates the menu immediately.
 ## Channel fields
 | Field | Meaning |
 |---|---|
-| `type` | `app` (default), or a live type: `photos`, `forecast`, `music` (see below) |
+| `type` | `app` (default), or a live type: `photos`, `forecast`, `music`, `disc` (see below) |
 | `app` | Desktop entry id or name (e.g. `firefox`, `org.gnome.Nautilus`). Supplies icon, name and launch command. |
 | `name` | The channel's name: its name bubble, the preview's title tab, and the file name of its banner (overrides the desktop entry's name) |
 | `exec` | Command to run (overrides the desktop entry's command) |
@@ -58,7 +58,7 @@ file is watched, so saving it updates the menu immediately.
    - `app`: the channel's `color` as a soft backdrop with drifting lights and
      the app's icon floating in the middle. The preview adds the name and
      the description.
-   - `photos`, `forecast`, `music`: see below.
+   - `photos`, `forecast`, `music`, `disc`: see below.
 
 Scenes, animated banners and videos rest while their page isn't the one
 showing and while you are in an app.
@@ -102,6 +102,26 @@ the bottom. The preview shows cover, title and artist with previous /
 play-pause / next buttons.
 Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
 
+### `disc`: Disc Channel
+Shows what is plugged in: a USB stick, SD card or disc that your desktop
+mounted under `/run/media/<you>/` (where udisks, and so most file managers,
+mount removable drives).
+
+- **Nothing in:** a dim, still disc. The preview says **"Please insert a
+  disc."** and Start is greyed out.
+- **Something in:** the disc lights up and spins, and the tile shows the
+  volume's name. The preview adds how full it is; **Start opens it in your
+  file manager** (`xdg-open`). With several volumes the first is shown and
+  the preview says how many more there are.
+
+```json
+{ "type": "disc", "name": "Disc Channel" }
+```
+
+The folder is looked at every 3 seconds while the menu is showing, so a
+drive appears a moment after it is mounted. The channel doesn't mount or
+eject anything itself. `wii ipc disc state` prints what it sees.
+
 ### Paths
 `dir` and other paths understand `~` and `${VAR}` (environment variables;
 `${WIIPERLAND_ROOT}` is always the repo folder).
@@ -122,6 +142,12 @@ Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
   the idle music tile and preview. A **playing** MPRIS player (livelier
   bars, cover art on the tile) was not re-tested in F5.
 - Banners and jingles: see [assets.md](assets.md).
+- Disc Channel (F6), with `$WIIPERLAND_MEDIA` pointing at a test folder:
+  empty, the tile was dim and the preview said "Please insert a disc." with
+  Start grey; after making a sub-folder the tile lit up with its name within
+  a few seconds and the preview showed name, size bar and a live Start. A
+  **real** USB stick or disc, and Start opening the file manager on it,
+  still need a check on real hardware.
 - Default config: 9 channels and 3 empty slots on page 1, 4 pages, arrows
   shown or hidden at the ends.
 - Missing icons fall back to the glyph badge.

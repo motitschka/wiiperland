@@ -52,7 +52,10 @@
       "name": "Steam",
       "color": "#2a475e"
     },
-    null,
+    {
+      "type": "disc",
+      "name": "Disc Channel"
+    },
     null,
     null,
     {

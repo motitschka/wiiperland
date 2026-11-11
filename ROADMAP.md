@@ -77,6 +77,8 @@ real hardware (they can't be driven from a nested session):
   only);
 - hearing a channel's jingle start and stop with its preview, and how much
   a page full of video banners loads the machine;
+- the Disc Channel with a real USB stick, SD card or disc, and Start opening
+  it in the file manager;
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
 - unlocking with a real password (PAM);
@@ -107,7 +109,7 @@ before the next one starts.
 - [x] **F5. Channel banners**: full-bleed image / animated / video banners
       and jingles from the asset folder, redesigned built-in art for the
       rest.
-- [ ] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.
+- [x] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.
 - [ ] **F7. Arranging channels**: hold and drag to swap, click an empty
       slot to add, right-click to move or remove.
 - [ ] **F8. Sound and music**: retuned UI sounds, menu music that fades and

@@ -25,6 +25,10 @@ export WIIPERLAND_STATE="${WIIPERLAND_STATE:-$WP_STATE/state}"
 # The owner's asset folder may hold files that must never end up in a
 # screenshot, so tests get their own (empty unless a test fills it).
 export WIIPERLAND_ASSETS="${WIIPERLAND_ASSETS:-$WP_STATE/assets}"
+# The Disc Channel looks here instead of /run/media/$USER, so your own drives
+# don't show up in a test. Make a sub-folder to "insert" something.
+export WIIPERLAND_MEDIA="${WIIPERLAND_MEDIA:-$WP_STATE/media}"
+mkdir -p "$WIIPERLAND_MEDIA"
 # Tests don't make noise: sounds are logged, not played. WP_SOUND=1 to hear them.
 [[ "${WP_SOUND:-0}" == 1 ]] || export WIIPERLAND_SILENT=1
 export WIIPERLAND_DEV_MODE="${1:-1280x720}"

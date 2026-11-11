@@ -15,6 +15,7 @@ quickshell/
     Menu.qml             menu state (page, ...) + `menu` IPC target
     Launcher.qml         desktop entries, running detection, start/resume
     Weather.qml          wttr.in fetcher for the Forecast Channel
+    Disc.qml             plugged-in drives for the Disc Channel
     Sound.qml            UI sounds
     Messages.qml         notification server + message board state
     Hypr.qml             Hyprland helpers (focused monitor, workspace)
@@ -47,6 +48,7 @@ quickshell/
     PhotoArt.qml         photo slideshow tile / collage preview
     ForecastArt.qml      weather sky tile / 3-day preview
     WeatherIcon.qml      drawn weather icons
+    DiscArt.qml          Disc Channel: drawn disc, volume name and size
     MusicArt.qml         equaliser scene, MPRIS now playing + controls
   assets/
     fonts/               M PLUS Rounded 1c (OFL)
