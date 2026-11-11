@@ -67,4 +67,11 @@ print(' '.join(m['name'] for m in json.load(sys.stdin) if m['name'] != '$output'
   hyprctl dispatch 'hl.dsp.focus({ workspace = 1 })' >/dev/null
 fi
 printf 'HYPRLAND_INSTANCE_SIGNATURE=%s\nWAYLAND_DISPLAY=%s\nWP_PID=%s\nWP_BUS=%q\nWP_OUTPUT=%s\n' "$sig" "$sock" "$pid" "${WIIPERLAND_DEV_BUS:-}" "$output" >"$WP_STATE/instance"
+# An invisible corner surface that dev/hover.sh parks the pointer on. It
+# exits with the nested Hyprland.
+(
+  export HYPRLAND_INSTANCE_SIGNATURE="$sig" WAYLAND_DISPLAY="$sock"
+  [[ -n "${WIIPERLAND_DEV_BUS:-}" ]] && export DBUS_SESSION_BUS_ADDRESS="$WIIPERLAND_DEV_BUS"
+  nohup qs -p "$WP_ROOT/dev/pointer-park" >"$WP_STATE/pointer-park.log" 2>&1 &
+)
 echo "nested Hyprland pid=$pid socket=$sock${output:+ output=$output (headless)}"

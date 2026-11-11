@@ -23,7 +23,7 @@ file is watched, so saving it updates the menu immediately.
 ## Top-level settings
 | Key | Default | Meaning |
 |---|---|---|
-| `brand` | `"Hypr"` | Word embossed on empty slots and on the home button |
+| `brand` | `"Hypr"` | Word embossed on empty slots and on the home button, and the "<brand> Menu" label shown when the menu comes into view |
 | `clock24h` | `false` | 24-hour clock (hides AM/PM) |
 | `sounds` | `true` | UI sounds (see [sounds.md](sounds.md)) |
 | `soundVolume` | `0.6` | 0 to 1 |
@@ -85,8 +85,10 @@ Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
 `${WIIPERLAND_ROOT}` is always the repo folder).
 
 ## Navigation
-- Arrows at the screen edges, mouse wheel or touchpad scroll flip pages.
-- Hovering a tile gives it the pulsing blue outline.
+- The neighbouring pages peek in at the screen edges. Clicking a peeking
+  tile or an arrow, or scrolling with the wheel or the touchpad, flips pages.
+- Hovering a tile gives it a pale-blue ring and shows its name in a bubble
+  under it.
 - `bin/wii ipc menu next|prev`, `bin/wii ipc menu page <n>`, and
   `bin/wii ipc menu state` (prints `{"page":…,"pageCount":…}`).
 
@@ -97,4 +99,5 @@ Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
 - Default config: 9 channels and 3 empty slots on page 1, 4 pages, arrows
   shown or hidden at the ends.
 - Missing icons fall back to the glyph badge.
-- `menu next` / `menu prev` slide pages; hovering shows the blue outline.
+- `menu next` / `menu prev` / `menu page <n>` slide the strip and the
+  neighbouring page peeks in; hovering shows the ring and the name bubble.

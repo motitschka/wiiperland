@@ -5,6 +5,7 @@ import QtQuick.Shapes
 Item {
     id: root
     property color color: "#9c9c9c"
+    property color flapColor: "#f4f4f4"
     width: 60; height: 42
 
     Rectangle {
@@ -16,7 +17,7 @@ Item {
         anchors.fill: parent
         preferredRendererType: Shape.CurveRenderer
         ShapePath {
-            strokeColor: "#f4f4f4"; strokeWidth: root.height * 0.09
+            strokeColor: root.flapColor; strokeWidth: root.height * 0.09
             fillColor: "transparent"; capStyle: ShapePath.RoundCap; joinStyle: ShapePath.RoundJoin
             startX: root.width * 0.08; startY: root.height * 0.14
             PathLine { x: root.width * 0.5; y: root.height * 0.58 }

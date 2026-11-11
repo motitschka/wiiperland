@@ -24,7 +24,7 @@ ShellRoot {
 
     IpcHandler {
         target: "shell"
-        function home(): void { homeMenu.close(); Menu.closePreviews() }
+        function home(): void { homeMenu.close(); Menu.closePreviews(); Menu.arrive() }
         function toast(title: string, body: string): void { Messages.local(title, body) }
         function osd(kind: string): void { osd.show(kind) }
     }

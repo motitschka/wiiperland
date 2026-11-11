@@ -7,8 +7,9 @@ shell.
 ![The Wiiperland home menu](docs/img/home.png)
 
 - **The menu**: a white, finely striped home screen with pages of 4×3
-  rounded channel tiles, a curved grey bottom bar, a thin segment clock with a
-  blinking colon, the date, and round glossy buttons in the corners.
+  rounded channel tiles that run edge to edge (the next page peeks in), name
+  bubbles on hover, a curved pale grey bottom bar, a segment clock with a
+  blinking colon, the date, and round buttons in the corners.
 - **Channels**: click a tile and it zooms up into a full-screen preview with
   **Menu** and **Start**. Start fades to white and opens the app on its own
   workspace, or jumps to it if it's already running.

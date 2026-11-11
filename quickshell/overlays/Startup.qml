@@ -114,7 +114,7 @@ Scope {
         SequentialAnimation {
             id: fadeOut
             NumberAnimation { target: out; property: "opacity"; to: 1; duration: 350 }
-            ScriptAction { script: root.shown = false }
+            ScriptAction { script: { root.shown = false; Menu.arrive() } }
         }
     }
 }

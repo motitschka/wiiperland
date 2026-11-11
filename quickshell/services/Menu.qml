@@ -11,6 +11,7 @@ Singleton {
     readonly property int pageCount: Config.pageCount
     onPageCountChanged: if (page >= pageCount) page = Math.max(0, pageCount - 1)
 
+    signal arrive()            // the menu just came into view: show "<brand> Menu"
     signal closePreviews()
     signal openPreview(int slot)
     signal startPreview()
@@ -38,6 +39,7 @@ Singleton {
         function close(): void { root.closePreviews() }
         function start(): void { root.startPreview() }
         function board(): void { root.openBoard() }
+        function arrive(): void { root.arrive() }
         function state(): string { return JSON.stringify({ page: root.page, pageCount: root.pageCount }) }
     }
 }

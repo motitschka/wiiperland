@@ -49,7 +49,7 @@ Example: `~/.config/wiiperland/assets/sounds/tick.wav`.
 | `ui-medium` | buttons, labels |
 | `ui-bold` | headings, channel names, the date |
 | `ui` | stands in for any of the three above that is missing |
-| `clock` | the clock digits. Without it the clock is drawn as thin segments. |
+| `clock` | the clock digits. Without it the clock is drawn as segments. |
 
 If you supply only some of the `ui-*` files, the others borrow the nearest
 one you did supply, so the built-in font isn't mixed in. The clock font is

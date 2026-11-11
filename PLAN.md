@@ -46,8 +46,8 @@ as they reload.
 - The mouse can't be clicked in the nested session. Drive the UI through IPC
   (`dev/run.sh bin/wii ipc menu open 2`, `... menu start`,
   `... startup dismiss`, ...) and add IPC entry points for new features so
-  they can be tested. Hover can be triggered by moving the pointer:
-  `dev/run.sh hyprctl dispatch 'hl.dsp.cursor.move({ x = 600, y = 300 })'`.
+  they can be tested. Hover can be triggered with `dev/hover.sh 600 300`
+  (a plain `hyprctl` cursor move isn't seen by Qt; see `docs/development.md`).
   `grim -c` (with the instance env loaded) captures the cursor too.
 - Logs: `dev/run.sh qs -p quickshell log`. Runtime **Lua** errors show up only
   as notifications in the top-right of a screenshot, not in
@@ -75,7 +75,7 @@ as they reload.
 ### Reference recording
 `assets/ref/Screencast From 2026-11-11 07-28-00.mp4` (git-ignored, never
 commit). It's 46 s, 1920×1200, a capture of real-Wii footage; the picture
-fills y≈60–1176. Pull frames with
+fills y≈63–1120 (1057 px tall). Pull frames with
 `ffmpeg -ss <t> -i "<file>" -frames:v 1 out.png`.
 
 | Time | Shows |

@@ -78,7 +78,10 @@ real hardware (they can't be driven from a nested session):
 - unlocking with a real password (PAM);
 - power buttons and the volume slider (they'd act on the real machine);
 - the pointer changing size between the menu and apps with a real mouse
-  (it works in the nested session, which has no hardware cursor plane).
+  (it works in the nested session, which has no hardware cursor plane);
+- clicking a peeking tile to flip the page, and gliding the pointer from one
+  tile straight to the next (in the test session the pointer always arrives
+  from outside, see `docs/development.md`).
 
 ## Wii fidelity
 Making it feel like the real Wii menu. The agreed plan, with every decision
@@ -91,7 +94,7 @@ before the next one starts.
       resolver. Docs: `docs/assets.md`.
 - [x] **F2. Cursor**: redrawn hand (white, dark grey outline, blue "1"
       badge), Wii-sized on the menu and normal size in apps.
-- [ ] **F3. Menu fidelity pass**: lighter bar with a thin pale-blue recess
+- [x] **F3. Menu fidelity pass**: lighter bar with a thin pale-blue recess
       line, bigger clock, `Fri 4/18` date, edge-to-edge grid with peeking
       neighbour pages, name bubbles instead of the hover grow, the
       "<brand> Menu" label on arrival.

@@ -17,6 +17,16 @@ Singleton {
         return DesktopEntries.byId(channel.app) ?? DesktopEntries.heuristicLookup(channel.app)
     }
 
+    // The name shown for a channel (the bubble under its tile).
+    function label(channel: var): string {
+        if (!channel) return ""
+        if (channel.name) return channel.name
+        const e = entryFor(channel)
+        if (e) return e.name
+        const names = { photos: "Photo Channel", forecast: "Forecast Channel", music: "Music Channel", disc: "Disc Channel" }
+        return names[channel.type ?? "app"] ?? "Channel"
+    }
+
     function command(channel: var): list<string> {
         if (channel.exec) return ["sh", "-c", channel.exec]
         const e = entryFor(channel)

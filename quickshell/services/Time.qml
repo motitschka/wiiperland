@@ -11,7 +11,7 @@ Singleton {
     readonly property int minutes: now.getMinutes()
     readonly property bool pm: now.getHours() >= 12
     readonly property bool colonOn: now.getSeconds() % 2 === 0
-    readonly property string dateText: Qt.formatDate(now, "ddd, M/d")
+    readonly property string dateText: Qt.formatDate(now, "ddd M/d")   // "Fri 4/18"
 
     SystemClock { id: clock; precision: SystemClock.Seconds }
 }

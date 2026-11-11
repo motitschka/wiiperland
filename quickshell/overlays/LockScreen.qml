@@ -83,9 +83,19 @@ Scope {
                 y: surface.hh * 0.2
                 spacing: surface.hh * 0.03
 
-                SegmentClock {
+                // The clock itself has no width (its x is the colon), and a
+                // Column leaves out items without one, so it gets a box that
+                // is as wide as the whole clock and is centred as a whole.
+                Item {
                     anchors.horizontalCenter: parent.horizontalCenter
-                    digitHeight: surface.hh * 0.12
+                    width: lockClock.leftExtent + lockClock.rightExtent
+                    height: lockClock.height
+                    SegmentClock {
+                        id: lockClock
+                        x: leftExtent
+                        digitHeight: surface.hh * 0.12
+                        color: Theme.greyText
+                    }
                 }
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter

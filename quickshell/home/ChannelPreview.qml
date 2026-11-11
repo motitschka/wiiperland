@@ -64,9 +64,9 @@ Item {
         y: root.lerp(root.fromRect.y, 0)
         width: root.lerp(root.fromRect.width, root.width)
         height: root.lerp(root.fromRect.height, root.height)
-        radius: root.lerp(root.fromRect.height * 0.16, 0)
+        radius: root.lerp(root.fromRect.height * 0.12, 0)
         border.color: Theme.tileBorder
-        border.width: root.lerp(Math.max(1.5, root.fromRect.height * 0.022), 0)
+        border.width: root.lerp(Math.max(1.5, root.fromRect.height * 0.014), 0)
         contentInsideBorder: true
         color: "#ffffff"
 

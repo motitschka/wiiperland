@@ -11,11 +11,16 @@ Singleton {
     readonly property color blue: "#34beed"
     readonly property color blueLight: "#8adcf7"
     readonly property color blueDark: "#0e9fd8"
+    readonly property color blueLine: "#72cde9"      // the thin pale line along the bar, button rings
+    readonly property color blueHover: "#5ccaee"     // outline of a hovered tile
     readonly property color bg: "#f3f3f3"
-    readonly property color tileBorder: "#c4c4c4"
+    readonly property color tileBorder: "#bcbdc2"
     readonly property color tileEmpty: "#dcdcdc"
-    readonly property color barTop: "#dcdddf"
-    readonly property color barBottom: "#c6c7c9"
+    readonly property color barTop: "#dcdde3"        // pale, slightly bluish grey
+    readonly property color barBottom: "#d0d1d9"
+    readonly property color barShade: "#5f6672"      // soft shadow under the bar's top edge
+    readonly property color clockGrey: "#9b9c9f"
+    readonly property color dateGrey: "#696a6e"
     readonly property color greyText: "#8e8e8e"
     readonly property color darkText: "#5a5a5a"
     readonly property color white: "#ffffff"

@@ -23,10 +23,16 @@ PanelWindow {
     readonly property real s: height / 720
 
     // Leaving the menu (e.g. a channel opened) closes any preview instantly.
-    onMenuOpenChanged: if (!menuOpen) { if (!preview.busy) preview.reset(); board.open = false }
+    // Coming back shows "<brand> Menu" in the recess for a moment.
+    onMenuOpenChanged: {
+        if (menuOpen) bar.arrive()
+        else { if (!preview.busy) preview.reset(); board.open = false }
+    }
+    Component.onCompleted: if (menuOpen) bar.arrive()
 
     Connections {
         target: Menu
+        function onArrive(): void { if (win.menuOpen) bar.arrive() }
         function onClosePreviews(): void { preview.close(); board.hide() }
         function onOpenBoard(): void { if (win.menuOpen) board.show() }
         function onOpenPreview(slot: int): void {
@@ -61,6 +67,17 @@ PanelWindow {
         visible: opacity > 0
         Behavior on opacity { NumberAnimation { duration: 220; easing.type: Easing.OutCubic } }
 
+        BottomBar {
+            id: bar
+            anchors.fill: parent
+            opacity: 1 - Math.max(preview.progress, board.progress)
+            enabled: !preview.active && !board.open
+            unread: Messages.unread
+            onHomeClicked: Menu.page = 0
+            onMailClicked: board.show()
+        }
+
+        // above the bar: the name bubble of a bottom-row tile overlaps it
         ChannelGrid {
             id: grid
             anchors.fill: parent
@@ -68,15 +85,6 @@ PanelWindow {
             opacity: 1 - Math.max(preview.progress, board.progress)
             enabled: !preview.active && !board.open
             onActivated: (slot, tile) => preview.openFrom(slot, tile.mapToItem(menu, 0, 0, tile.width, tile.height))
-        }
-
-        BottomBar {
-            anchors.fill: parent
-            opacity: 1 - Math.max(preview.progress, board.progress)
-            enabled: !preview.active && !board.open
-            unread: Messages.unread
-            onHomeClicked: Menu.page = 0
-            onMailClicked: board.show()
         }
 
         ChannelPreview {

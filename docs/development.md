@@ -25,6 +25,7 @@ current Wayland session that uses this repo's config.
 | `dev/hctl.sh …` | `hyprctl` against the nested instance, e.g. `dev/hctl.sh clients`. |
 | `dev/run.sh cmd …` | Run a program inside the nested instance. |
 | `dev/shot.sh [name]` | Screenshot the nested instance to `dev/screenshots/<name>.png`. `WP_CURSOR=1` includes the pointer. |
+| `dev/hover.sh X Y` | Put the pointer at X,Y in the nested instance so that the shell reacts (hover rings, name bubbles). |
 | `dev/stop.sh` | Stop the nested instance. |
 
 ### Headless mode
@@ -39,6 +40,21 @@ desktop. Use it for automated testing:
 
 The off-screen output draws the pointer into the picture, so screenshots
 show the cursor even without `WP_CURSOR=1`.
+
+### Pointer and hover
+The mouse can't be clicked in the nested session, so the UI is driven through
+IPC (`dev/run.sh bin/wii ipc menu open 2`, ...). Hover can be tested:
+`dev/hover.sh X Y` puts the pointer at X,Y.
+
+Don't use `hyprctl dispatch 'hl.dsp.cursor.move(...)'` on its own for that.
+It sends the motion without the frame event that ends a group of pointer
+events, and Qt waits for that frame, so the shell never sees a move that
+stays inside one surface. Entering a surface does come with a frame. So
+`dev/nested.sh` starts a tiny invisible surface in the top-left corner
+(`dev/pointer-park/`), and `dev/hover.sh` parks the pointer there before each
+move: the shell then gets "the pointer entered at X,Y". The pointer therefore
+always arrives from outside. Gliding from one tile straight to the next can
+only be tried with a real mouse.
 
 Put machine-specific settings such as `QS_PREFIX=...` in `dev/local.env` (git-ignored).
 
@@ -71,6 +87,19 @@ nested shell.
 | `WIIPERLAND_STATE` | Folder for saved state (default `~/.local/state/wiiperland`). |
 | `WIIPERLAND_ASSETS` | Your asset folder (default `~/.config/wiiperland/assets`), see [assets.md](assets.md). |
 | `WIIPERLAND_SILENT` | `1` logs UI sounds instead of playing them. |
+
+## Good to know
+- Quickshell reloads the shell when a QML file is saved. The reload fails
+  with `<Name> is not a type` after an inline `component <Name>: ...` was
+  added, renamed or removed in a file that was already loaded, and the old
+  picture stays on screen. Restart with `dev/nested.sh`.
+- Run the shell only through `dev/nested.sh`. Started by hand
+  (`qs -p quickshell`) it has no test environment: it reads your real
+  `config.json` and plays sounds.
+- QML: a `Behavior` on a property never advances while that property's
+  binding changes on every frame (for example an `opacity` bound to a value
+  that another animation is pulsing), because each change restarts it. Fade
+  a parent item with the Behavior and run the pulse on a child.
 
 ## Checklist for every change
 1. `Hyprland --verify-config -c hypr/hyprland.lua`
