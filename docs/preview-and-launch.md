@@ -57,6 +57,25 @@ dev/run.sh bin/wii home              # back to the menu
 dev/hover.sh 1270 1040               # hover Start (1920x1200)
 ```
 
+## Timings
+Measured from the reference recording (it runs at about 24 frames a second,
+so each figure is good to roughly 0.04 s) and used in
+`home/ChannelPreview.qml`:
+
+| Motion | Recording | Here |
+|---|---|---|
+| Menu fades to black, the tile barely grows | 0.3 s | 280 ms (the tile reaches 6% of the way) |
+| Panel shoots up to full size | 0.2 s | 230 ms, fast start, soft landing |
+| Title tab and arrows fade in | 0.3 s after the panel lands | 300 ms |
+| Stepping with an arrow: the new picture fades in | 0.4 s | 400 ms |
+| Name bubble under a hovered tile | 0.2 s | 80 ms wait + 130 ms fade |
+| Preview back to the menu | not in the recording | 320 ms, everything at once |
+| Start: fade to white | not clearly shown (the picture goes white within a frame or two and stays so while the channel loads) | 200 ms, then the app opens |
+| Page slide | not in the recording | 450 ms, unchanged |
+
+After stepping to another channel with the arrows, going back to the menu
+shrinks the panel onto **that** channel's tile and shows its page.
+
 ## Layout numbers
 Measured from the reference recording, as shares of the screen:
 
@@ -74,8 +93,9 @@ the tab carries the name.
 
 ## Tested
 In `dev/nested.sh --headless 1920x1200`:
-- `menu open 0` and `menu open 3`: mid-zoom and final frames captured; the
-  panel grows as a whole with live-looking (not greyed) pills.
+- `menu open 0` and `menu open 3`: frames captured through the zoom show the
+  three stages above (menu dimming with the tile in place, the panel
+  growing on black with live-looking pills, then tab and arrows).
 - `menu step 1` / `menu step -1`: steps through Text Editor, Retro Term,
   Photo, Forecast and Music.
 - Music Channel (nothing to start): Start is grey, `menu start` does nothing.

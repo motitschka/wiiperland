@@ -15,7 +15,9 @@ Item {
     readonly property bool active: slot >= 0
     property rect fromRect: Qt.rect(0, 0, width, height)
     property real progress: 0          // 0 = tile, 1 = full panel
-    readonly property bool busy: anim.running || flash.running
+    property real dim: 0               // the screen around the panel: 0 = menu, 1 = black
+    property real settle: 0            // title tab and arrows fading in after the zoom
+    readonly property bool busy: openAnim.running || closeAnim.running || flash.running
     // Start is greyed out when the channel has nothing to start.
     readonly property bool canStart: Launcher.canStart(channel)
 
@@ -37,16 +39,18 @@ Item {
 
     function openFrom(s: int, r: rect): void {
         leaving = false; slot = s; fromRect = r
-        anim.from = 0; anim.to = 1; anim.restart()
+        closeAnim.stop(); progress = 0; dim = 0; settle = 0
+        openAnim.restart()
         Sound.play("open")
     }
     function close(): void {
-        if (!active || anim.running) return
+        if (!active || closeAnim.running) return
+        openAnim.stop()
         leaving = true
-        anim.from = progress; anim.to = 0; anim.restart()
+        closeAnim.restart()
         Sound.play("back")
     }
-    function reset(): void { anim.stop(); progress = 0; slot = -1; leaving = false; whiteOut.opacity = 0 }
+    function reset(): void { openAnim.stop(); closeAnim.stop(); progress = 0; dim = 0; settle = 0; slot = -1; leaving = false; whiteOut.opacity = 0 }
     function start(): void {
         if (!channel || !canStart || flash.running) return
         Sound.play("start")
@@ -54,15 +58,32 @@ Item {
     }
     function step(dir: int): void {
         const n = Menu.neighbour(slot, dir)
-        if (n !== slot && n >= 0) { slot = n; Sound.play("page") }
+        if (n !== slot && n >= 0) { slot = n; stepFade.restart(); Sound.play("page") }
     }
 
-    NumberAnimation {
-        id: anim
-        target: root; property: "progress"
-        duration: 520; easing.type: Easing.InOutCubic
-        onFinished: if (root.progress === 0) { root.slot = -1; root.leaving = false; root.finished() }
+    // Timings follow the reference recording (docs/preview-and-launch.md):
+    // the menu fades to black while the tile barely grows, then the panel
+    // shoots up to full size, then the title tab and the arrows fade in.
+    SequentialAnimation {
+        id: openAnim
+        ParallelAnimation {
+            NumberAnimation { target: root; property: "dim"; to: 1; duration: 280; easing.type: Easing.OutQuad }
+            NumberAnimation { target: root; property: "progress"; to: 0.06; duration: 280; easing.type: Easing.InQuad }
+        }
+        NumberAnimation { target: root; property: "progress"; to: 1; duration: 230; easing.type: Easing.OutQuad }
+        NumberAnimation { target: root; property: "settle"; to: 1; duration: 300 }
     }
+    // Back to the menu: everything at once, quicker.
+    ParallelAnimation {
+        id: closeAnim
+        NumberAnimation { target: root; property: "settle"; to: 0; duration: 100 }
+        NumberAnimation { target: root; property: "progress"; to: 0; duration: 320; easing.type: Easing.InOutQuad }
+        NumberAnimation { target: root; property: "dim"; to: 0; duration: 320; easing.type: Easing.InQuad }
+        onFinished: { root.slot = -1; root.leaving = false; root.finished() }
+    }
+
+    // stepping to another channel: its picture fades in
+    NumberAnimation { id: stepFade; target: art; property: "opacity"; from: 0; to: 1; duration: 400; easing.type: Easing.OutQuad }
 
     function lerp(a: real, b: real): real { return a + (b - a) * progress }
 
@@ -70,7 +91,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: "#000000"
-        opacity: root.progress
+        opacity: root.dim
     }
 
     ClippingRectangle {
@@ -92,6 +113,7 @@ Item {
         readonly property real bandH: height * root.bandShare
 
         ChannelArt {
+            id: art
             anchors.fill: parent
             anchors.bottomMargin: frame.bandH * frame.bandIn
             channel: root.channel
@@ -106,7 +128,7 @@ Item {
             width: title.implicitWidth + height * 1.5
             x: frame.width - width
             y: frame.height * 0.065
-            opacity: Math.max(0, Math.min(1, (root.progress - 0.55) / 0.35))
+            opacity: root.settle
             Rectangle {
                 // runs past the panel's edge, so only the left end is rounded
                 width: parent.width + radius; height: parent.height
@@ -185,14 +207,14 @@ Item {
         width: root.hh * 0.05; height: root.hh * 0.092
         x: root.panelRect.x + root.width * 0.016
         y: root.panelRect.y + root.panelRect.height * 0.38 - height / 2
-        opacity: root.progress > 0.98 ? 1 : 0
+        opacity: root.settle
         onClicked: root.step(-1)
     }
     PageArrow {
         width: root.hh * 0.05; height: root.hh * 0.092
         x: root.panelRect.x + root.panelRect.width - root.width * 0.016 - width
         y: root.panelRect.y + root.panelRect.height * 0.38 - height / 2
-        opacity: root.progress > 0.98 ? 1 : 0
+        opacity: root.settle
         onClicked: root.step(1)
     }
 
@@ -205,7 +227,7 @@ Item {
     }
     SequentialAnimation {
         id: flash
-        NumberAnimation { target: whiteOut; property: "opacity"; from: 0; to: 1; duration: 260; easing.type: Easing.InQuad }
+        NumberAnimation { target: whiteOut; property: "opacity"; from: 0; to: 1; duration: 200; easing.type: Easing.InQuad }
         ScriptAction { script: Launcher.start(root.channel) }
         PauseAnimation { duration: 450 }
         ScriptAction { script: { root.reset(); root.finished() } }

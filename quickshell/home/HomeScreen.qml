@@ -96,6 +96,14 @@ PanelWindow {
             id: preview
             anchors.fill: parent
             hh: win.height
+            // after stepping to another channel, go back to that channel's
+            // tile (and its page), not to the one that was opened
+            onSlotChanged: {
+                if (slot < 0) return
+                Menu.page = Math.floor(slot / 12)
+                const c = grid.slotCentre(slot)
+                fromRect = Qt.rect(c.x - grid.tileW / 2, c.y - grid.tileH / 2, grid.tileW, grid.tileH)
+            }
         }
 
         ChannelPicker {

@@ -4,12 +4,12 @@ For whoever picks this up next, including a fresh chat on another account.
 Read this, then `PLAN.md`, `ROADMAP.md` and `docs/development.md`.
 
 ## Where things stand
-- Branch `main`, clean, pushed. Last commit: `821cb50 F8: menu music and
-  retuned UI sounds`.
-- Wii fidelity steps **F1 to F8 are done**: built, tested in the off-screen
+- Branch `main`, clean, pushed. See `git log` for the last commit (F9 or
+  later).
+- Wii fidelity steps **F1 to F9 are done**: built, tested in the off-screen
   session, documented, committed, pushed. No step is half-finished and there
   is no handoff file (`F<n>-HANDOFF.md`) lying around.
-- **Left: F9, F10, F11.** Then the plan is complete.
+- **Left: F10, F11.** Then the plan is complete.
 
 ## How the owner wants the work done
 - For every step: build → test in `dev/nested.sh --headless 1920x1200`
@@ -29,34 +29,10 @@ Read this, then `PLAN.md`, `ROADMAP.md` and `docs/development.md`.
   config pins the forecast to Reykjavik), not their pictures, and not the
   channel picker (it lists their installed apps).
 
-## F9. Motion (next)
-PLAN.md, decision 9: re-tune zoom-in, preview open/close, white fade, page
-slide and hover timings against the reference recording, and document the
-measured durations.
-
-1. Pull frames from `assets/ref/Screencast From 2026-11-11 07-28-00.mp4`
-   around 14 to 36 s at 25 fps, e.g.
-   `ffmpeg -ss 23 -t 3 -i "<file>" -vf fps=25,scale=480:-1 out/%03d.png`,
-   and count frames for each motion. The table of what is where is in
-   PLAN.md ("Reference recording"). The tile-to-preview zoom is around 24 s,
-   the channel start (white fade) around 32 to 36 s, page slides and hover
-   around 14 to 22 s.
-2. Current values to compare against:
-   - `quickshell/home/ChannelPreview.qml`: zoom `duration: 520`
-     (`InOutCubic`); white fade `260` then a `450` pause; the band appears
-     over the first third of the zoom (`bandIn`); title tab fades in from
-     55% to 90% of the zoom.
-   - `quickshell/home/ChannelGrid.qml`: page slide `duration: 450`
-     (`OutCubic`).
-   - `quickshell/home/ChannelTile.qml`: hover ring fade `130`, glow breathing
-     `700` each way. `NameBubble.qml`: appears after `180`, fade `110`,
-     scale `170`.
-   - `quickshell/home/HomeScreen.qml`: waits `480` for a page slide before
-     opening a preview by IPC; menu fade `220`.
-   - `hypr/wiiperland/animations.lua`: window and workspace animations.
-3. Put the measured durations in a table in `docs/preview-and-launch.md`
-   (and `docs/shell.md` for the menu), tick F9.
-4. Test: mid-animation screenshots (`sleep 0.25; dev/shot.sh`), as F4 did.
+## F9. Motion: done
+Timings were measured from the recording and are in
+`docs/preview-and-launch.md` ("Timings"). The recording has no page slide,
+no preview closing and no clear channel start, so those kept our own values.
 
 ## F10. Welcome screen
 PLAN.md, decision 10. Replaces `quickshell/overlays/Startup.qml`:

@@ -24,7 +24,7 @@ Item {
         if (tile) { anchorTile = tile; text = tile.label; appear.restart() }
         else { heldLeft = viewLeft; heldRight = viewRight; appear.stop(); shown = false }
     }
-    Timer { id: appear; interval: 180; onTriggered: root.shown = true }
+    Timer { id: appear; interval: 80; onTriggered: root.shown = true }
 
     readonly property real edge: (spanRight - spanLeft) * 0.069   // keep this far from the screen edges
     width: Math.min(label.implicitWidth + hh * 0.13, (spanRight - spanLeft) * 0.36)
@@ -36,7 +36,7 @@ Item {
     opacity: shown ? 1 : 0
     scale: shown ? 1 : 0.88
     visible: opacity > 0
-    Behavior on opacity { NumberAnimation { duration: 110 } }
+    Behavior on opacity { NumberAnimation { duration: 130 } }
     Behavior on scale { NumberAnimation { duration: 170; easing.type: Easing.OutBack } }
 
     // soft shadow
