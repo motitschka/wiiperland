@@ -75,9 +75,8 @@ All phases are done and tested in a nested Hyprland session. Still to check on
 real hardware (they can't be driven from a nested session):
 - clicking the preview's pills and arrows (they are tested by hover and IPC
   only);
-- hearing a channel's jingle start and stop with its preview, a `.webp`
-  banner (needs `qt6-imageformats`), and how much a page full of video
-  banners loads the machine;
+- hearing a channel's jingle start and stop with its preview, and how much
+  a page full of video banners loads the machine;
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
 - unlocking with a real password (PAM);

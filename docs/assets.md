@@ -159,6 +159,7 @@ In the nested session, with a test folder:
   path and with a path relative to the asset folder both worked.
 - Jingles: the log showed the jingle starting when the preview opened and
   when stepping onto the channel, and stopping on stepping away and on close
-  (the test session logs sounds instead of playing them). **Hearing** it,
-  and `.webp` banners (`qt6-imageformats` isn't installed on the test
-  machine), still need a check on real hardware.
+  (the test session logs sounds instead of playing them). **Hearing** it
+  still needs a check on real hardware.
+- `.webp` banners, after installing `qt6-imageformats`: a still one and an
+  animated one both filled their tiles, and the animated one moved.
