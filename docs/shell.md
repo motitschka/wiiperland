@@ -31,7 +31,7 @@ quickshell/
     NameBubble.qml       the bubble with the channel's name under a hovered tile
     PageArrow.qml        pale-blue arrowhead with a hollowed back
     ChannelPreview.qml   zoomed channel preview
-    PillButton.qml       rounded preview/board buttons
+    PillButton.qml       glossy preview/board pills
     MessageBoard.qml     message board overlay
   overlays/              separate layer surfaces (import qs.overlays)
     Toasts.qml           notification toasts
@@ -106,7 +106,7 @@ Proportions, weights and tones follow a recording of the real console (see
 | `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` |
 | `homemenu` | `toggle()` / `open()` / `close()` | HOME Menu |
 | `menu` | `next()`, `prev()`, `page(n)`, `state()` | Pages, see [channels.md](channels.md#navigation) |
-| `menu` | `open(slot)`, `start()`, `close()` | Channel preview, see [preview-and-launch.md](preview-and-launch.md) |
+| `menu` | `open(slot)`, `step(dir)`, `start()`, `close()` | Channel preview, see [preview-and-launch.md](preview-and-launch.md) |
 | `menu` | `board()` | Open the Message Board |
 | `menu` | `arrive()` | Show the arrival label, as if the menu had just come into view |
 | `assets` | `list()`, `reload()`, `sound(name)`, ... | The asset folder, see [assets.md](assets.md) |

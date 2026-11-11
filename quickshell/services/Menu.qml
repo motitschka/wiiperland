@@ -15,6 +15,7 @@ Singleton {
     signal closePreviews()
     signal openPreview(int slot)
     signal startPreview()
+    signal stepPreview(int dir)   // the preview's side arrows
     signal openBoard()
 
     // Next filled slot in direction dir (+1/-1), wrapping around.
@@ -40,6 +41,7 @@ Singleton {
         function start(): void { root.startPreview() }
         function board(): void { root.openBoard() }
         function arrive(): void { root.arrive() }
+        function step(dir: int): void { root.stepPreview(dir) }
         function state(): string { return JSON.stringify({ page: root.page, pageCount: root.pageCount }) }
     }
 }

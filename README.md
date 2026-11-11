@@ -10,7 +10,7 @@ shell.
   rounded channel tiles that run edge to edge (the next page peeks in), name
   bubbles on hover, a curved pale grey bottom bar, a segment clock with a
   blinking colon, the date, and round buttons in the corners.
-- **Channels**: click a tile and it zooms up into a full-screen preview with
+- **Channels**: click a tile and it grows into a "TV" panel preview with
   **Menu** and **Start**. Start fades to white and opens the app on its own
   workspace, or jumps to it if it's already running.
 - **Live channels**: a Photo Channel collage from your pictures, a Forecast

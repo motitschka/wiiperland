@@ -73,6 +73,8 @@ documented in `docs/` → committed and pushed** before the next one starts.
 ## Status
 All phases are done and tested in a nested Hyprland session. Still to check on
 real hardware (they can't be driven from a nested session):
+- clicking the preview's pills and arrows (they are tested by hover and IPC
+  only);
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
 - unlocking with a real password (PAM);
@@ -98,7 +100,7 @@ before the next one starts.
       line, bigger clock, `Fri 4/18` date, edge-to-edge grid with peeking
       neighbour pages, name bubbles instead of the hover grow, the
       "<brand> Menu" label on arrival.
-- [ ] **F4. Preview rebuild**: rounded "TV" panel on black, blue title tab,
+- [x] **F4. Preview rebuild**: rounded "TV" panel on black, blue title tab,
       big blue arrows, beige band, glossy pills, greyed-out Start.
 - [ ] **F5. Channel banners**: full-bleed image / animated / video banners
       and jingles from the asset folder, redesigned built-in art for the

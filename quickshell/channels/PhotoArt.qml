@@ -36,10 +36,11 @@ Item {
         }
     }
 
-    // header strip with the name
+    // header strip with the name (the preview has its own title tab instead)
     Rectangle {
         id: header
-        width: parent.width; height: parent.height * (root.large ? 0.12 : 0.24)
+        visible: !root.large
+        width: parent.width; height: root.large ? 0 : parent.height * 0.24
         gradient: Gradient {
             GradientStop { position: 0.0; color: "#e9a35b" }
             GradientStop { position: 1.0; color: "#c97a34" }

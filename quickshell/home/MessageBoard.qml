@@ -210,7 +210,7 @@ Item {
                 anchors.centerIn: parent
                 spacing: root.hh * 0.12
                 PillButton { hh: root.hh; text: "Back"; onClicked: root.hide() }
-                PillButton { hh: root.hh; text: "Clear All"; enabled: Messages.board.count > 0; opacity: enabled ? 1 : 0.5; onClicked: { Sound.play("back"); Messages.clear() } }
+                PillButton { hh: root.hh; text: "Clear All"; available: Messages.board.count > 0; onClicked: { Sound.play("back"); Messages.clear() } }
             }
         }
     }

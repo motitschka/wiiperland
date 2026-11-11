@@ -41,6 +41,7 @@ PanelWindow {
             openTimer.slot = slot; openTimer.restart()
         }
         function onStartPreview(): void { if (preview.active) preview.start() }
+        function onStepPreview(dir: int): void { if (preview.active && !preview.busy) preview.step(dir) }
     }
 
     Timer {

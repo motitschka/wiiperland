@@ -66,6 +66,13 @@ Singleton {
         return toplevelFor(channel) !== null
     }
 
+    // False when Start would do nothing: no open window to jump to and no
+    // command to run. The preview greys its Start button out then.
+    function canStart(channel: var): bool {
+        if (!channel) return false
+        return isRunning(channel) || command(channel).length > 0
+    }
+
     // Start the channel on a fresh workspace, or jump to it if running.
     function start(channel: var): void {
         const tl = toplevelFor(channel)
