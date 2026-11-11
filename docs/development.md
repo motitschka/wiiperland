@@ -109,6 +109,30 @@ nested shell.
   that another animation is pulsing), because each change restarts it. Fade
   a parent item with the Behavior and run the pulse on a child.
 
+- The log is cumulative: after a reload the old warnings are still in it.
+  A reload also closes an open preview, so open it again before a
+  screenshot.
+- `WIIPERLAND_SILENT=1` (the default here) means no audio process or player
+  is started at all. To exercise the real music player without noise, start
+  with `WP_SOUND=1` and a temporary config that has `"sounds": false` and
+  `"musicVolume": 0.001`.
+- Qt Multimedia ignores `play()` until the file has loaded; start from
+  `onMediaStatusChanged` at `LoadedMedia` (see `VideoBanner.qml`,
+  `MusicPlayer.qml`). Qt's own audio stream has no
+  `application.process.binary`; it is recognised by `media.name`.
+- Anything that should survive a missing QML module (video, music) goes in
+  its own file behind `Loader { source: Qt.resolvedUrl(...) }`.
+- Hand a component values that belong together (a banner's path and kind)
+  as one object. As two properties they change one after the other, and for
+  an instant an image loader gets a video file.
+- An IPC function can't be called `show`: `qs ipc call <target> show` lists
+  the target instead. Use `open`.
+- `PillButton` has `available` for the greyed-out look; `enabled` also turns
+  false while a parent animates.
+- Don't commit a screenshot of the channel picker (it lists the installed
+  apps) or of a Forecast preview taken with another config than
+  `dev/test-config.json` (it would name the town).
+
 ## Checklist for every change
 1. `Hyprland --verify-config -c hypr/hyprland.lua`
 2. `dev/nested.sh`, then `dev/shot.sh <name>` and look at the result.

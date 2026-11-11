@@ -72,8 +72,13 @@ documented in `docs/` → committed and pushed** before the next one starts.
 - Quickshell logs are checked for QML errors and warnings after every change.
 
 ## Status
-All phases are done and tested in a nested Hyprland session. Still to check on
-real hardware (they can't be driven from a nested session):
+The original phases 0 to 11 and the Wii fidelity steps F1 to F11 (below) are
+all done: built, tested in a nested Hyprland session, documented and pushed.
+The last full install test (`install.sh` into a throwaway home, a session
+started from it, `uninstall.sh`) was run on 2026-11-11.
+
+What is left is checking the things a nested session can't do. Still to
+check on real hardware:
 - clicking the preview's pills and arrows (they are tested by hover and IPC
   only);
 - **listening**: nobody has heard the retuned UI sounds or the built-in
@@ -88,6 +93,7 @@ real hardware (they can't be driven from a nested session):
   it in the file manager;
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
+- dismissing the welcome screen with a click and with Enter;
 - unlocking with a real password (PAM);
 - power buttons and the volume slider (they'd act on the real machine);
 - the pointer changing size between the menu and apps with a real mouse
@@ -124,7 +130,7 @@ before the next one starts.
 - [x] **F9. Motion**: timings measured from the reference recording.
 - [x] **F10. Welcome screen**: once per calendar day, replaces the startup
       screen.
-- [ ] **F11. Wrap-up**: README, docs, screenshots, full install test.
+- [x] **F11. Wrap-up**: README, docs, screenshots, full install test.
 
 ## Ideas for later
 - Animated channel banners (per-channel QML art packs).

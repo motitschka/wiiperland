@@ -55,11 +55,14 @@ hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 
 ```
 
 ## Tested
-In a throwaway home folder:
+In a throwaway home folder (last run on 2026-11-11, after fidelity step F10):
 - `install.sh` backed up an existing `hyprland.lua` and `hyprland.conf`,
-  wrote the entry point and `config.json` (leaving out the uninstalled
-  terminal), and linked the cursor and font.
+  wrote the entry point and `config.json` (all default channels, including
+  the Disc Channel; a channel whose app isn't installed is left out), made
+  the asset folders (`sounds`, `music`, `fonts`, `img`, `banners`) and linked
+  the cursor and font.
 - `Hyprland --verify-config` passes on the generated `hyprland.lua`. A nested
-  Hyprland started from it shows the welcome screen, the menu with the
-  installed channels, toasts, the channel preview and the HOME Menu.
+  Hyprland started from it showed the welcome screen, then the menu with the
+  installed channels, the Disc Channel preview and the HOME Menu with the
+  music controls, with no warnings in the shell's log.
 - `uninstall.sh` restored both original files and removed the links.
