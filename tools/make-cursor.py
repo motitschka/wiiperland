@@ -15,8 +15,11 @@ import tempfile
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SRC = os.path.join(ROOT, "assets", "cursor", "hand.svg")
 OUT = os.path.join(ROOT, "assets", "cursor", "Wiiperland")
-SIZES = [24, 32, 48, 64, 96]
-HOT = (15.0 / 64, 1.0 / 64)          # fingertip, as a fraction of the size
+# 48 is the default size in apps; the menu uses 8% of the screen height
+# (58 on 720p, 86 on 1080p, 96 on 1200p, 115 on 1440p). Hyprland scales the
+# nearest size for anything in between.
+SIZES = [24, 32, 48, 58, 64, 72, 86, 96, 115, 128, 160]
+HOT = (25.2 / 64, 3.0 / 64)          # fingertip, as a fraction of the size
 # every name apps use for the normal arrow and the link hand
 NAMES = ["default", "left_ptr", "arrow", "top_left_arrow", "pointer", "hand1", "hand2",
          "pointing_hand", "center_ptr", "e29285e634086352946a0e7090d73106",

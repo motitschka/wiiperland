@@ -17,7 +17,7 @@ Mii art, system sounds and music are **not** included.
 | Channel list and settings | JSON, read by Quickshell | `config/` → `~/.config/wiiperland/` |
 | Sounds | Generated WAVs (original), played with `pw-play` | `quickshell/assets/sounds/` |
 | Font | M PLUS Rounded 1c (OFL) | `quickshell/assets/fonts/` |
-| Cursor | Original hyprcursor/XCursor hand pointer | `assets/cursor/` (build input) |
+| Cursor | Original XCursor hand pointer | `assets/cursor/` (build input) |
 | Dev harness | Nested Hyprland and grim screenshots | `dev/` |
 
 ### Interaction model
@@ -76,7 +76,9 @@ real hardware (they can't be driven from a nested session):
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
 - unlocking with a real password (PAM);
-- power buttons and the volume slider (they'd act on the real machine).
+- power buttons and the volume slider (they'd act on the real machine);
+- the pointer changing size between the menu and apps with a real mouse
+  (it works in the nested session, which has no hardware cursor plane).
 
 ## Wii fidelity
 Making it feel like the real Wii menu. The agreed plan, with every decision
@@ -87,7 +89,7 @@ before the next one starts.
 - [x] **F1. Asset folder**: `~/.config/wiiperland/assets/` (sounds, music,
       fonts, images, banners) overrides the built-in files through one
       resolver. Docs: `docs/assets.md`.
-- [ ] **F2. Cursor**: redrawn hand (white, dark grey outline, blue "1"
+- [x] **F2. Cursor**: redrawn hand (white, dark grey outline, blue "1"
       badge), Wii-sized on the menu and normal size in apps.
 - [ ] **F3. Menu fidelity pass**: lighter bar with a thin pale-blue recess
       line, bigger clock, `Fri 4/18` date, edge-to-edge grid with peeking

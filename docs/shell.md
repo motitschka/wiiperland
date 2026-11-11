@@ -18,6 +18,7 @@ quickshell/
     Sound.qml            UI sounds
     Messages.qml         notification server + message board state
     Hypr.qml             Hyprland helpers (focused monitor, workspace)
+    Cursor.qml           pointer size: big on the menu, normal in apps
   home/                  the Wii Menu (import qs.home)
     HomeScreen.qml       full-screen layer surface under all windows
     BottomBar.qml        grey panel, recess with blue outline, pockets, buttons
@@ -74,6 +75,7 @@ keep the right proportions instead of stretching.
 | `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` |
 | `homemenu` | `toggle()` / `open()` / `close()` | HOME Menu |
 | `assets` | `list()`, `reload()`, `sound(name)`, ... | The asset folder, see [assets.md](assets.md) |
+| `cursor` | `state()` | Pointer theme and sizes, see [cursor.md](cursor.md) |
 
 ## Customising
 See [channels.md](channels.md) for `config.json` (brand label, 24-hour

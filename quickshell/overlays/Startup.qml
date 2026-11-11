@@ -10,6 +10,7 @@ import qs.services
 Scope {
     id: root
     property bool shown: false
+    onShownChanged: Cursor.hold("startup", shown)
     readonly property bool wanted: Config.data.startupScreen ?? true
     readonly property string marker: (Quickshell.env("XDG_RUNTIME_DIR") || "/tmp") + "/wiiperland-started-" + (Quickshell.env("HYPRLAND_INSTANCE_SIGNATURE") || "x")
 

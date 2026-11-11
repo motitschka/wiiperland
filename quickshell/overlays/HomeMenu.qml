@@ -12,6 +12,7 @@ import qs.home
 Scope {
     id: root
     property bool open: false
+    onOpenChanged: Cursor.hold("homemenu", open)
 
     function toggle(): void { open ? close() : show() }
     function show(): void { open = true; Sound.play("home") }
