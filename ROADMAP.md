@@ -75,6 +75,9 @@ All phases are done and tested in a nested Hyprland session. Still to check on
 real hardware (they can't be driven from a nested session):
 - clicking the preview's pills and arrows (they are tested by hover and IPC
   only);
+- hearing a channel's jingle start and stop with its preview, a `.webp`
+  banner (needs `qt6-imageformats`), and how much a page full of video
+  banners loads the machine;
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
   preview, board and HOME Menu;
 - unlocking with a real password (PAM);
@@ -102,7 +105,7 @@ before the next one starts.
       "<brand> Menu" label on arrival.
 - [x] **F4. Preview rebuild**: rounded "TV" panel on black, blue title tab,
       big blue arrows, beige band, glossy pills, greyed-out Start.
-- [ ] **F5. Channel banners**: full-bleed image / animated / video banners
+- [x] **F5. Channel banners**: full-bleed image / animated / video banners
       and jingles from the asset folder, redesigned built-in art for the
       rest.
 - [ ] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.

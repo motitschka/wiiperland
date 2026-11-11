@@ -10,6 +10,7 @@
 | `grim` | screenshots (Print key) |
 | `librsvg` | only to rebuild the cursor |
 | optional: `playerctl`, `brightnessctl`, a terminal (`kitty` by default) | media/brightness keys, SUPER+RETURN |
+| optional: `qt6-multimedia` + `qt6-multimedia-ffmpeg`, `qt6-imageformats` | video banners, `.webp` banners ([assets.md](assets.md)) |
 
 Don't run another notification daemon (dunst, mako, swaync) or bar; the shell
 does that job.

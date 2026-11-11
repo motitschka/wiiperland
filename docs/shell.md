@@ -40,12 +40,14 @@ quickshell/
     LockScreen.qml       session lock + PAM + idle auto-lock
     Startup.qml          once-per-login "click to continue" screen
   channels/              tile art per channel type (import qs.channels)
-    ChannelArt.qml       picks the art component for a channel type
-    AppArt.qml           icon + name on a tinted background, glyph fallback
-    PhotoArt.qml         photo collage from a folder
-    ForecastArt.qml      weather tile / 3-day preview
+    ChannelArt.qml       the owner's banner, else the built-in art for the type
+    BannerArt.qml        full-bleed banner: still, animated or video
+    VideoBanner.qml      looping silent video (needs Qt Multimedia)
+    AppArt.qml           tinted scene with the app's icon floating, glyph fallback
+    PhotoArt.qml         photo slideshow tile / collage preview
+    ForecastArt.qml      weather sky tile / 3-day preview
     WeatherIcon.qml      drawn weather icons
-    MusicArt.qml         MPRIS now playing + controls
+    MusicArt.qml         equaliser scene, MPRIS now playing + controls
   assets/
     fonts/               M PLUS Rounded 1c (OFL)
     img/stripes.png      1×6 px tile for the striped background

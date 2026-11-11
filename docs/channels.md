@@ -40,19 +40,35 @@ file is watched, so saving it updates the menu immediately.
 |---|---|
 | `type` | `app` (default), or a live type: `photos`, `forecast`, `music` (see below) |
 | `app` | Desktop entry id or name (e.g. `firefox`, `org.gnome.Nautilus`). Supplies icon, name and launch command. |
-| `name` | Label on the tile (overrides the desktop entry's name) |
+| `name` | The channel's name: its name bubble, the preview's title tab, and the file name of its banner (overrides the desktop entry's name) |
 | `exec` | Command to run (overrides the desktop entry's command) |
 | `icon` | Icon theme name (overrides the desktop entry's icon) |
 | `glyph` | Text drawn on a coloured badge when the icon isn't found (default: first letter of the name) |
-| `color` | Tint of the tile background and badge |
-| `description` | Line under the name on the preview screen (default: the desktop entry comment) |
+| `color` | Colour of the built-in scene and badge |
+| `banner` | Picture, animation or video shown instead of the built-in art ([assets.md](assets.md#banners-channel-banners-and-jingles)). Without it, `banners/<name>.*` in the asset folder is used if present. |
+| `jingle` | Sound played while the preview is open. Without it, `banners/<name>.ogg` (or another sound format) is used if present. |
+| `description` | Line under the name on the preview of the built-in app art (default: the desktop entry comment) |
 | `class` | Window app-id regex used to tell whether the channel is running (see [preview-and-launch.md](preview-and-launch.md)) |
+
+## What a tile shows
+1. The channel's **banner**, if it has one: full-bleed, cropped to fill.
+2. Otherwise the **built-in art** for its type. Every built-in tile is a
+   full-bleed scene that moves gently and carries no name (hover shows the
+   name bubble):
+   - `app`: the channel's `color` as a soft backdrop with drifting lights and
+     the app's icon floating in the middle. The preview adds the name and
+     the description.
+   - `photos`, `forecast`, `music`: see below.
+
+Scenes, animated banners and videos rest while their page isn't the one
+showing and while you are in an app.
 
 ## Live channel types
 
 ### `photos`: Photo Channel
-A collage of pictures from `dir` (default `~/Pictures`, not recursive). It
-shuffles every 7 seconds; the preview shows five. Start opens the folder with
+The tile is one picture from `dir` (default `~/Pictures`, not recursive),
+full-bleed, slowly zooming, cross-fading to the next every 7 seconds. The
+preview is a collage of five that sways a little. Start opens the folder with
 `xdg-open` unless `exec` is set.
 
 ```json
@@ -60,8 +76,10 @@ shuffles every 7 seconds; the preview shows five. Start opens the folder with
 ```
 
 ### `forecast`: Forecast Channel
-Current weather on the tile; place, conditions and a three-day forecast on
-the preview. Data comes from [wttr.in](https://wttr.in) through `curl` every
+The tile is a sky for the current weather: sun, drifting clouds, falling
+rain or snow, an occasional flash in a storm, with the temperature in the
+corner. The preview puts the place, conditions and a three-day forecast on a
+card over the same sky. Data comes from [wttr.in](https://wttr.in) through `curl` every
 30 minutes. Settings go in a top-level `forecast` object:
 
 ```json
@@ -73,11 +91,15 @@ the preview. Data comes from [wttr.in](https://wttr.in) through `curl` every
 | `units` | `"metric"` | `"metric"` (°C) or `"imperial"` (°F) |
 | `enabled` | `true` | `false` stops all network requests |
 
-Icons (sun, partly cloudy, cloud, fog, rain, snow, storm) are drawn in QML.
+The sky and the icons (sun, partly cloudy, cloud, fog, rain, snow, storm) are
+drawn in QML.
 
 ### `music`: Music Channel
-Shows what any MPRIS player is playing (the playing one first): cover art,
-title and artist, with previous / play-pause / next buttons on the preview.
+Follows any MPRIS player (the playing one first). The tile shows equaliser
+bars and rising notes that liven up while something plays; when the player
+supplies cover art, the cover fills the tile with the title and artist along
+the bottom. The preview shows cover, title and artist with previous /
+play-pause / next buttons.
 Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
 
 ### Paths
@@ -93,9 +115,13 @@ Set `app` (e.g. `"app": "vlc"`) so Start opens your player.
   `bin/wii ipc menu state` (prints `{"page":…,"pageCount":…}`).
 
 ## Tested
-- Live tiles in the nested session: photos from a folder (collage on tile and
-  preview), real wttr.in weather (tile + 3-day preview), a playing MPRIS
-  player picked up with controls on the preview.
+- Built-in scenes in the nested session (F5): app tiles with a theme icon
+  and with a glyph badge, the photo slideshow tile and collage preview, the
+  forecast sky for real wttr.in weather (rain and sun seen; snow, fog and
+  storm are drawn by the same code but weren't in the weather on the day),
+  the idle music tile and preview. A **playing** MPRIS player (livelier
+  bars, cover art on the tile) was not re-tested in F5.
+- Banners and jingles: see [assets.md](assets.md).
 - Default config: 9 channels and 3 empty slots on page 1, 4 pages, arrows
   shown or hidden at the ends.
 - Missing icons fall back to the glyph badge.

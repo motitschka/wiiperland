@@ -23,22 +23,30 @@ Item {
     readonly property rect panelRect: Qt.rect(width * 0.012, height * 0.02, width * 0.976, height * 0.96)
     readonly property real bandShare: 0.235   // of the panel's height
 
+    // The channel's jingle plays while its preview is open: from the moment
+    // it opens (or steps to another channel) until it closes or starts.
+    property bool leaving: false
+    readonly property string jingle: active && !leaving && !flash.running && channel
+        ? Assets.jingle(Launcher.label(channel), channel.jingle ?? "") : ""
+    onJingleChanged: Sound.jingle(jingle)
+
     signal finished()
 
     visible: active
     enabled: active && progress > 0.98 && !flash.running
 
     function openFrom(s: int, r: rect): void {
-        slot = s; fromRect = r
+        leaving = false; slot = s; fromRect = r
         anim.from = 0; anim.to = 1; anim.restart()
         Sound.play("open")
     }
     function close(): void {
         if (!active || anim.running) return
+        leaving = true
         anim.from = progress; anim.to = 0; anim.restart()
         Sound.play("back")
     }
-    function reset(): void { anim.stop(); progress = 0; slot = -1; whiteOut.opacity = 0 }
+    function reset(): void { anim.stop(); progress = 0; slot = -1; leaving = false; whiteOut.opacity = 0 }
     function start(): void {
         if (!channel || !canStart || flash.running) return
         Sound.play("start")
@@ -53,7 +61,7 @@ Item {
         id: anim
         target: root; property: "progress"
         duration: 520; easing.type: Easing.InOutCubic
-        onFinished: if (root.progress === 0) { root.slot = -1; root.finished() }
+        onFinished: if (root.progress === 0) { root.slot = -1; root.leaving = false; root.finished() }
     }
 
     function lerp(a: real, b: real): real { return a + (b - a) * progress }
@@ -88,6 +96,7 @@ Item {
             anchors.bottomMargin: frame.bandH * frame.bandIn
             channel: root.channel
             large: root.progress > 0.5
+            playing: root.active
         }
 
         // blue title tab, top right

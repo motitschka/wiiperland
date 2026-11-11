@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
 import Quickshell
+import Quickshell.Io
 
 // UI sounds, played with pw-play (PipeWire) or paplay as a fallback. The
 // built-in WAVs are made by tools/make-sounds.py; a file of the same name in
@@ -26,5 +27,35 @@ Singleton {
         Quickshell.execDetached(["sh", "-c",
             'pw-play --volume "$1" "$2" 2>/dev/null || paplay --volume "$3" "$2"',
             "wii-sound", String(volume), file, String(Math.round(volume * 65536))])
+    }
+
+    // ---- channel jingle: one longer sound that can be stopped -----------
+    // The preview plays the channel's jingle (banners/<name>.ogg) once while
+    // it is open. jingle("") or stopJingle() cuts it off.
+    property string jingleFile: ""     // what should be playing ("" = nothing)
+    property string _started: ""       // what the player was last started with
+
+    function jingle(file: string): void {
+        const f = enabled && volume > 0 ? file : ""
+        if (f === jingleFile) return
+        jingleFile = f
+        console.debug("jingle", f || "(stop)")
+        if (silent) return
+        if (player.running) player.running = false   // onExited starts the next one
+        else _startJingle()
+    }
+    function stopJingle(): void { jingle("") }
+
+    function _startJingle(): void {
+        _started = jingleFile
+        if (!jingleFile) return
+        player.command = ["pw-play", "--volume", String(volume), jingleFile]
+        player.running = true
+    }
+
+    Process {
+        id: player
+        // ended by itself: stay quiet. Killed for another jingle: start that one.
+        onExited: if (root.jingleFile !== root._started) root._startJingle()
     }
 }

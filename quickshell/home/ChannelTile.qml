@@ -50,6 +50,8 @@ Item {
         ChannelArt {
             anchors.fill: parent
             channel: root.channel
+            // animations and video rest while the tile is out of view
+            playing: root.current && Hypr.activeWorkspace === 1
         }
 
         // running indicator

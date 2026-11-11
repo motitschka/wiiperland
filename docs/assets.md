@@ -64,10 +64,49 @@ scaled so that its `0` is as tall as the drawn digits.
 | `home-button` | the brand word on the round home button (drawn inside the button, square) |
 | `mail` | the drawn envelope on the mail button |
 
-## `music/` and `banners/`
-Menu music (`music/menu.*`) and channel banners and jingles
-(`banners/<channel name>.*`) are read from here too. They are wired up in
-roadmap steps F8 and F5; this page gets their details then.
+## `banners/`: channel banners and jingles
+A banner replaces a channel's built-in art, on its tile and in its preview.
+Name the file after the channel, exactly as its name bubble shows it:
+
+```
+banners/Photo Channel.png      still picture
+banners/Internet.gif           animated
+banners/Steam.mp4              video (silent, loops)
+banners/Steam.ogg              jingle for the same channel
+```
+
+| Kind | Formats | Needs |
+|---|---|---|
+| Still | `.png`, `.jpg`, `.jpeg` | |
+| Animated | `.gif`, `.webp` | `.webp` (still or animated) needs the `qt6-imageformats` package |
+| Video | `.mp4`, `.webm`, `.mkv`, `.mov` | `qt6-multimedia` and `qt6-multimedia-ffmpeg` |
+| Jingle | `.wav`, `.ogg`, `.oga`, `.flac`, `.mp3` | |
+
+- The picture is **cropped to fill**. Tiles are about 12:7 and the preview's
+  picture area about 5:2, so keep what matters near the middle. Around
+  1280×720 is plenty.
+- When one channel has several banners, a video wins over an animated
+  picture, which wins over a still one.
+- A `/` in a channel name is written as `_` in the file name.
+- Video banners play **without sound** and loop. Animated and video banners
+  rest while their page isn't showing or while you are in an app.
+- The **jingle** plays once each time that channel's preview opens (also
+  when you step to it with the arrows) and stops when the preview closes or
+  the channel starts. It follows `sounds` and `soundVolume` in `config.json`.
+- A banner that can't be shown (broken file, missing package) is skipped with
+  a warning in the log, and the built-in art shows instead.
+
+A channel can also name its files in `config.json`, which wins over the
+folder. `~` and `${VAR}` work; a relative path is looked up in the asset
+folder:
+
+```json
+{ "type": "app", "app": "steam", "banner": "~/Pictures/steam-banner.mp4", "jingle": "banners/shared-tune.ogg" }
+```
+
+## `music/`
+Menu music (`music/menu.*`) is read from here too. It is wired up in roadmap
+step F8; this page gets its details then.
 
 ## How it works
 `services/Assets.qml` is the one resolver. It indexes the folder with
@@ -80,6 +119,8 @@ roadmap steps F8 and F5; this page gets their details then.
 | `Assets.sound(name)` | path of your `sounds/<name>.*`, else the built-in WAV |
 | `Assets.music(name)` | path of your `music/<name>.*`, else `""` |
 | `Assets.font(role)` | path of your font for a role, else `""` |
+| `Assets.banner(name, explicit)` | `{ path, kind }` of a channel's banner (`kind`: `image`, `animated`, `video`), else `null` |
+| `Assets.jingle(name, explicit)` | path of a channel's jingle, else `""` |
 | `Assets.find(sub, name, exts)` | path of your `<sub>/<name>.<ext>`, else `""` |
 
 Your files are loaded by absolute `file://` URL (Quickshell refuses relative
@@ -93,6 +134,8 @@ wii ipc assets dir                 # the asset folder
 wii ipc assets list                # every file found in it
 wii ipc assets sound tick          # which file plays for "tick"
 wii ipc assets font ui-bold        # which font file a role uses ("" = built-in)
+wii ipc assets banner "Photo Channel"   # kind and file of a channel's banner ("" = built-in art)
+wii ipc assets jingle "Photo Channel"
 wii ipc assets resolve img/stripes.png
 wii ipc assets reload              # index again now
 ```
@@ -109,3 +152,13 @@ In the nested session, with a test folder:
 - Overwriting `stripes.png` and `ui.ttf` in place showed after
   `assets reload`.
 - Deleting the folder put every built-in back, with no warnings in the log.
+- Banners (F5), with files made by `ffmpeg`: a `.png`, a `.gif` and an `.mp4`
+  each filled their tile and their preview, and the gif and the video moved.
+  A text file renamed to `.png` and a `"banner"` path that doesn't exist both
+  fell back to the built-in art with one warning. `"banner"` with an absolute
+  path and with a path relative to the asset folder both worked.
+- Jingles: the log showed the jingle starting when the preview opened and
+  when stepping onto the channel, and stopping on stepping away and on close
+  (the test session logs sounds instead of playing them). **Hearing** it,
+  and `.webp` banners (`qt6-imageformats` isn't installed on the test
+  machine), still need a check on real hardware.

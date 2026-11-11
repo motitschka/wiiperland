@@ -13,6 +13,8 @@ shell.
 - **Channels**: click a tile and it grows into a "TV" panel preview with
   **Menu** and **Start**. Start fades to white and opens the app on its own
   workspace, or jumps to it if it's already running.
+- **Banners**: every tile is a full-bleed, gently moving scene. Drop your own
+  picture, gif or video (and a jingle) into the asset folder to replace one.
 - **Live channels**: a Photo Channel collage from your pictures, a Forecast
   Channel (wttr.in, three-day preview) and a Music Channel (any MPRIS player,
   with controls).

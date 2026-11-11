@@ -30,6 +30,9 @@ Singleton {
     readonly property var musicExts: ["ogg", "oga", "mp3", "flac", "wav", "m4a", "opus"]
     readonly property var imageExts: ["png", "svg", "jpg", "jpeg", "webp"]
     readonly property var fontExts: ["ttf", "otf"]
+    readonly property var videoExts: ["mp4", "webm", "mkv", "mov"]
+    // a moving banner wins over a still one of the same name
+    readonly property var bannerExts: videoExts.concat(["gif", "webp", "png", "jpg", "jpeg"])
 
     function _trim(p: string): string { return p.length > 1 && p.endsWith("/") ? p.slice(0, -1) : p }
 
@@ -79,6 +82,38 @@ Singleton {
 
     // Path of the owner's "music/<name>.<ogg|mp3|...>", or "".
     function music(name: string): string { return find("music", name, musicExts) }
+
+    // ---- channel banners and jingles (banners/<channel name>.*) ----------
+
+    // A channel name as a file name: "/" can't be in one.
+    function bannerName(name: string): string { return name.replace(/\//g, "_") }
+
+    // An explicit path from config.json ("banner" / "jingle"): "~" and
+    // ${VAR} are expanded; a relative path is looked up in the asset folder.
+    function _explicit(path: string): string {
+        const p = Config.expand(path)
+        return p.startsWith("/") ? p : dir + "/" + p
+    }
+
+    function _ext(path: string): string {
+        const dot = path.lastIndexOf(".")
+        return dot < 0 ? "" : path.slice(dot + 1).toLowerCase()
+    }
+
+    // The banner of a channel, or null: { path, kind } with kind "image",
+    // "animated" (gif, webp) or "video". `explicit` is the channel's
+    // "banner" value from config.json, which wins over the banners folder.
+    function banner(name: string, explicit: string): var {
+        const p = explicit ? _explicit(explicit) : find("banners", bannerName(name), bannerExts)
+        if (!p) return null
+        const e = _ext(p)
+        return { path: p, kind: videoExts.includes(e) ? "video" : (e === "gif" || e === "webp") ? "animated" : "image" }
+    }
+
+    // Path of a channel's jingle (banners/<channel name>.ogg|wav|...), or "".
+    function jingle(name: string, explicit: string): string {
+        return explicit ? _explicit(explicit) : find("banners", bannerName(name), soundExts)
+    }
 
     // Path of the owner's font for a role, or "". Roles: "ui-regular",
     // "ui-medium", "ui-bold" (plain "ui" stands in for any of them) and "clock".
@@ -183,5 +218,7 @@ Singleton {
         function resolve(rel: string): string { return String(root.url(rel)) }
         function sound(name: string): string { return root.sound(name) }
         function font(role: string): string { return root.font(role) }
+        function banner(name: string): string { const b = root.banner(name, ""); return b ? b.kind + " " + b.path : "" }
+        function jingle(name: string): string { return root.jingle(name, "") }
     }
 }

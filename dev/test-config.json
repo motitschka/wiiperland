@@ -1,6 +1,7 @@
 {
   "brand": "Hypr",
   "pages": 2,
+  "forecast": { "location": "Reykjavik" },
   "channels": [
     {
       "type": "app",
