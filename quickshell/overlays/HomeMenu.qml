@@ -111,7 +111,7 @@ Scope {
 
             Row {
                 anchors.centerIn: parent
-                spacing: win.hh * 0.08
+                spacing: win.hh * 0.045
 
                 // volume
                 Column {
@@ -127,8 +127,43 @@ Scope {
                         WiiSlider {
                             anchors.verticalCenter: parent.verticalCenter
                             hh: win.hh
+                            width: win.hh * 0.24
                             value: Audio.volume
                             onMoved: v => Audio.setVolume(v)
+                        }
+                    }
+                }
+
+                // menu music: its own mute and level, saved to config.json
+                Column {
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: win.hh * 0.012
+                    Text { text: "Menu music"; font.family: Theme.fontMedium; font.pixelSize: win.hh * 0.026; color: "#d8dde2" }
+                    Row {
+                        spacing: win.hh * 0.02
+                        BarButton {
+                            hh: win.hh; square: true; onClicked: Music.setEnabled(!Music.enabled)
+                            Text {
+                                anchors.centerIn: parent
+                                text: "♪"
+                                font.pixelSize: parent.height * 0.5
+                                color: "#ffffff"; opacity: Music.enabled ? 1 : 0.35
+                            }
+                            // struck through when off
+                            Rectangle {
+                                visible: !Music.enabled
+                                anchors.centerIn: parent
+                                width: parent.height * 0.6; height: Math.max(2, parent.height * 0.05); radius: height / 2
+                                color: "#ffffff"; rotation: -40
+                            }
+                        }
+                        WiiSlider {
+                            anchors.verticalCenter: parent.verticalCenter
+                            hh: win.hh
+                            width: win.hh * 0.2
+                            opacity: Music.enabled ? 1 : 0.4
+                            value: Music.volume
+                            onMoved: v => Music.setVolume(v)
                         }
                     }
                 }

@@ -10,6 +10,9 @@ Opens on top of everything, on the focused screen:
   - **Close Channel**: closes the focused window (greyed out on the menu).
 - A **bottom bar** slides up with:
   - **Volume**: mute button and a draggable blue slider (PipeWire default output).
+  - **Menu music**: a note button that switches the menu music off and on,
+    and a slider for its level (saved to `config.json`, see
+    [sounds.md](sounds.md#menu-music)).
   - **Battery**: level and percentage (laptops only, via UPower).
   - **Power**: Lock, Log Out, Restart, Shut Down. The last three ask
     "Sure?" and need a second click within 3 seconds.

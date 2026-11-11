@@ -12,7 +12,7 @@ import qs.home
 Scope {
     id: root
     property bool locked: false
-    onLockedChanged: Cursor.hold("lock", locked)
+    onLockedChanged: { Cursor.hold("lock", locked); Music.hold = locked }
     property string password: ""
     property string message: ""
     property bool failed: false

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Synthesise Wiiperland's UI sounds (original, CC0) into quickshell/assets/sounds.
 
-Soft sine/bell tones with quick attacks and gentle decays. Run again after
-changing anything here:  python3 tools/make-sounds.py
+Short, soft, glassy pings (a sine with faint inharmonic overtones, like a
+tapped glass) and airy whooshes, all kept quiet. Run again after changing
+anything here:  python3 tools/make-sounds.py
 """
 import math
 import os
@@ -21,13 +22,17 @@ def env(t, attack, decay):
     return math.exp(-(t - attack) / decay)
 
 
-def bell(freq, dur, start=0.0, amp=1.0, decay=0.12, attack=0.004, partials=((1, 1.0), (2.01, 0.25), (3.02, 0.08))):
+# Glass: the overtones sit off the harmonic series and die away faster than
+# the fundamental, which is what makes a ping sound glassy instead of bright.
+GLASS = ((1, 1.0, 1.0), (2.76, 0.16, 0.45), (5.4, 0.05, 0.25))
+
+
+def bell(freq, dur, start=0.0, amp=1.0, decay=0.12, attack=0.006, partials=GLASS):
     def f(t):
         t -= start
         if t < 0 or t > dur:
             return 0.0
-        e = env(t, attack, decay)
-        return amp * e * sum(a * math.sin(2 * math.pi * freq * m * t) for m, a in partials)
+        return amp * sum(a * env(t, attack, decay * d) * math.sin(2 * math.pi * freq * m * t) for m, a, d in partials)
     return f
 
 
@@ -87,20 +92,20 @@ def note(n):  # MIDI note -> Hz
 
 os.makedirs(OUT, exist_ok=True)
 
-# hover: a tiny high tick
-render("tick", [glide(2300, 2900, 0.035, decay=0.012)], 0.05, gain=0.25)
-# click: short soft pop
-render("click", [bell(note(88), 0.09, decay=0.03), glide(900, 500, 0.03, amp=0.4, decay=0.01)], 0.1, gain=0.35)
-# page flip: airy swoosh plus a light tick
-render("page", [noise_sweep(0.22, amp=0.5), bell(note(91), 0.08, start=0.12, amp=0.3, decay=0.03)], 0.25, gain=0.3)
-# open preview: rising two-note chime (E6 -> B6)
-render("open", [bell(note(88), 0.35, decay=0.1), bell(note(95), 0.4, start=0.07, decay=0.14)], 0.5, gain=0.4)
-# back: falling two-note chime (B5 -> E5)
-render("back", [bell(note(83), 0.3, decay=0.08), bell(note(76), 0.35, start=0.07, decay=0.12)], 0.45, gain=0.38)
-# start: bright arpeggio C6 E6 G6 C7 with a sparkle
-render("start", [bell(note(n), 0.7, start=i * 0.06, decay=0.18, amp=1 - i * 0.12) for i, n in enumerate((84, 88, 91, 96))]
-       + [bell(note(103), 0.5, start=0.26, amp=0.25, decay=0.2)], 0.95, gain=0.42)
-# mail: gentle two-bell ding (for new notifications)
-render("mail", [bell(note(93), 0.8, decay=0.25), bell(note(100), 0.9, start=0.14, decay=0.3, amp=0.7)], 1.1, gain=0.35)
+# hover: a tiny soft tick
+render("tick", [glide(1900, 2300, 0.03, decay=0.01)], 0.045, gain=0.16)
+# click: short glassy pop
+render("click", [bell(note(88), 0.08, decay=0.025), glide(800, 520, 0.025, amp=0.3, decay=0.008)], 0.09, gain=0.26)
+# page flip: airy whoosh with a faint ping at the end
+render("page", [noise_sweep(0.24, amp=0.5), bell(note(91), 0.07, start=0.14, amp=0.18, decay=0.025)], 0.27, gain=0.2)
+# open preview: rising two-note ping (E6 -> B6)
+render("open", [bell(note(88), 0.3, decay=0.08), bell(note(95), 0.36, start=0.07, decay=0.11)], 0.45, gain=0.28)
+# back: falling two-note ping (B5 -> E5)
+render("back", [bell(note(83), 0.26, decay=0.07), bell(note(76), 0.3, start=0.07, decay=0.1)], 0.4, gain=0.26)
+# start: light arpeggio C6 E6 G6 C7 with a sparkle on top
+render("start", [bell(note(n), 0.6, start=i * 0.06, decay=0.15, amp=1 - i * 0.12) for i, n in enumerate((84, 88, 91, 96))]
+       + [bell(note(103), 0.45, start=0.26, amp=0.2, decay=0.16)], 0.85, gain=0.3)
+# mail: gentle two-glass ding (for new notifications)
+render("mail", [bell(note(93), 0.7, decay=0.2), bell(note(100), 0.8, start=0.14, decay=0.24, amp=0.7)], 1.0, gain=0.26)
 # home menu open/close
-render("home", [bell(note(79), 0.4, decay=0.12), bell(note(86), 0.45, start=0.05, decay=0.14), bell(note(91), 0.5, start=0.1, decay=0.16)], 0.65, gain=0.38)
+render("home", [bell(note(79), 0.36, decay=0.1), bell(note(86), 0.4, start=0.05, decay=0.12), bell(note(91), 0.45, start=0.1, decay=0.14)], 0.6, gain=0.27)

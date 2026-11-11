@@ -23,7 +23,7 @@ shell.
   a graph-paper board.
 - **HOME Menu** (SUPER+ESC) from anywhere: back to the menu, close the
   channel, volume, battery and power.
-- **Feel**: soft original UI sounds, a pointing-hand cursor, windows that
+- **Feel**: soft original UI sounds and quiet menu music, a pointing-hand cursor, windows that
   zoom in with a little overshoot, a blue glow on the focused window, a "click
   to continue" start screen and a matching lock screen.
 
@@ -68,7 +68,7 @@ soon as you save. See [docs/channels.md](docs/channels.md).
 - [Channels and config.json](docs/channels.md)
 - [Channel preview and launching](docs/preview-and-launch.md)
 - [Your own assets (sounds, fonts, images)](docs/assets.md)
-- [Sounds](docs/sounds.md)
+- [Sounds and music](docs/sounds.md)
 - [Message Board](docs/messages.md)
 - [HOME Menu and volume](docs/home-menu.md)
 - [Lock screen and startup screen](docs/lock-and-startup.md)

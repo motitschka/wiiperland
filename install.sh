@@ -41,7 +41,7 @@ declare -A OPT=( [playerctl]=playerctl [brightnessctl]=brightnessctl [kitty]=kit
 missing=(); optional=()
 for c in "${!PKG[@]}"; do command -v "$c" >/dev/null || missing+=("${PKG[$c]}"); done
 for c in "${!OPT[@]}"; do command -v "$c" >/dev/null || optional+=("${OPT[$c]}"); done
-# Qt add-ons for your own banners (docs/assets.md): video and .webp
+# Qt add-ons: menu music and video banners, .webp banners
 [[ -d /usr/lib/qt6/qml/QtMultimedia ]] || optional+=(qt6-multimedia qt6-multimedia-ffmpeg)
 [[ -e /usr/lib/qt6/plugins/imageformats/libqwebp.so ]] || optional+=(qt6-imageformats)
 
@@ -61,7 +61,7 @@ if ((${#missing[@]})); then
     echo "    (or run ./install.sh --deps)"
   fi
 fi
-((${#optional[@]})) && echo "    Optional (media keys, brightness, the default terminal, video and .webp banners): ${optional[*]}"
+((${#optional[@]})) && echo "    Optional (media keys, brightness, the default terminal, menu music, video and .webp banners): ${optional[*]}"
 
 # --- back up the current Hyprland config -------------------------------------
 HYPR="$CONF/hypr"

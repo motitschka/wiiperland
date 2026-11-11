@@ -104,9 +104,11 @@ folder:
 { "type": "app", "app": "steam", "banner": "~/Pictures/steam-banner.mp4", "jingle": "banners/shared-tune.ogg" }
 ```
 
-## `music/`
-Menu music (`music/menu.*`) is read from here too. It is wired up in roadmap
-step F8; this page gets its details then.
+## `music/`: menu music
+`music/menu.ogg`, `.oga`, `.mp3`, `.flac`, `.wav`, `.m4a` or `.opus` replaces
+the built-in loop that plays on the menu. It is looped as it is, so a file
+that ends the way it begins sounds best. Level, fading and ducking are
+described in [sounds.md](sounds.md#menu-music).
 
 ## How it works
 `services/Assets.qml` is the one resolver. It indexes the folder with

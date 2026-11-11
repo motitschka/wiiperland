@@ -64,11 +64,26 @@ Singleton {
 
     readonly property int slotCount: pageCount * 12
 
-    function save(): void {
-        console.info("config: saving", userPath)
-        Quickshell.execDetached(["sh", "-c",
-            'mkdir -p "$(dirname "$1")" && printf "%s\\n" "$2" > "$1.tmp" && mv "$1.tmp" "$1"',
-            "wii-config", userPath, JSON.stringify(data, null, 2)])
+    // Writes are gathered for a moment, so dragging a slider is one write.
+    function save(): void { writer.restart() }
+    Timer {
+        id: writer
+        interval: 250
+        onTriggered: {
+            console.info("config: saving", root.userPath)
+            Quickshell.execDetached(["sh", "-c",
+                'mkdir -p "$(dirname "$1")" && printf "%s\\n" "$2" > "$1.tmp" && mv "$1.tmp" "$1"',
+                "wii-config", root.userPath, JSON.stringify(root.data, null, 2)])
+        }
+    }
+
+    // Change one top-level setting and save.
+    function setValue(key: string, value: var): void {
+        if (JSON.stringify(data[key]) === JSON.stringify(value)) return
+        const d = Object.assign({}, data)
+        d[key] = value
+        data = d
+        save()
     }
 
     function setChannels(list: var): void {

@@ -18,9 +18,10 @@ ShellRoot {
     LockScreen { id: lock }
     Startup {}
 
-    // make sure the notification server and the pointer sizing start with the shell
+    // make sure the notification server, the pointer sizing and the music start with the shell
     readonly property int _unread: Messages.unread
     readonly property int _cursorSize: Cursor.size
+    readonly property string _music: Music.mood     // the menu music
 
     IpcHandler {
         target: "shell"

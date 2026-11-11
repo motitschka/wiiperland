@@ -16,7 +16,9 @@ quickshell/
     Launcher.qml         desktop entries, running detection, start/resume
     Weather.qml          wttr.in fetcher for the Forecast Channel
     Disc.qml             plugged-in drives for the Disc Channel
-    Sound.qml            UI sounds
+    Sound.qml            UI sounds and channel jingles
+    Music.qml            menu music: which file, fading, ducking
+    MusicPlayer.qml      the player (needs Qt Multimedia)
     Messages.qml         notification server + message board state
     Hypr.qml             Hyprland helpers (focused monitor, workspace)
     Cursor.qml           pointer size: big on the menu, normal in apps

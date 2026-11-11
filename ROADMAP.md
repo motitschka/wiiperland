@@ -16,6 +16,7 @@ Mii art, system sounds and music are **not** included.
 | Shell (home menu, bar, overlays, notifications, lock) | Quickshell (QML) | `quickshell/` |
 | Channel list and settings | JSON, read by Quickshell | `config/` → `~/.config/wiiperland/` |
 | Sounds | Generated WAVs (original), played with `pw-play` | `quickshell/assets/sounds/` |
+| Menu music | Generated loop (original), played with Qt Multimedia | `quickshell/assets/music/` |
 | Font | M PLUS Rounded 1c (OFL) | `quickshell/assets/fonts/` |
 | Cursor | Original XCursor hand pointer | `assets/cursor/` (build input) |
 | Dev harness | Nested Hyprland and grim screenshots | `dev/` |
@@ -75,6 +76,9 @@ All phases are done and tested in a nested Hyprland session. Still to check on
 real hardware (they can't be driven from a nested session):
 - clicking the preview's pills and arrows (they are tested by hover and IPC
   only);
+- **listening**: nobody has heard the retuned UI sounds or the built-in
+  menu music yet. Check that they sound right, that the music fades when a
+  channel opens and comes back, and that it ducks under other audio;
 - hearing a channel's jingle start and stop with its preview, and how much
   a page full of video banners loads the machine;
 - arranging with a real mouse: hold and drag a tile (also across pages by
@@ -115,7 +119,7 @@ before the next one starts.
 - [x] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.
 - [x] **F7. Arranging channels**: hold and drag to swap, click an empty
       slot to add, right-click to move or remove.
-- [ ] **F8. Sound and music**: retuned UI sounds, menu music that fades and
+- [x] **F8. Sound and music**: retuned UI sounds, menu music that fades and
       ducks.
 - [ ] **F9. Motion**: timings measured from the reference recording.
 - [ ] **F10. Welcome screen**: once per calendar day, replaces the startup
