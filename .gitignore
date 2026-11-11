@@ -3,3 +3,4 @@ dev/.nested/
 __pycache__/
 dev/screenshots/
 dev/local.env
+assets/ref/

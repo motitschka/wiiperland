@@ -78,6 +78,10 @@ real hardware (they can't be driven from a nested session):
 - unlocking with a real password (PAM);
 - power buttons and the volume slider (they'd act on the real machine).
 
+## Next: Wii fidelity
+The agreed plan for making it feel like the real Wii menu is in
+[PLAN.md](PLAN.md).
+
 ## Ideas for later
 - Animated channel banners (per-channel QML art packs).
 - A Settings channel for `config.json` (drag tiles to reorder).
