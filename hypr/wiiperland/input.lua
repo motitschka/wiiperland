@@ -17,7 +17,12 @@ return function(o)
       follow_mouse = 1,
       touchpad = { natural_scroll = true, tap_to_click = true },
     },
-    cursor = { hide_on_key_press = false },
+    cursor = {
+      hide_on_key_press = false,
+      -- Don't copy the hand cursor into gsettings: that setting is shared
+      -- with GNOME and would change its cursor too.
+      sync_gsettings_theme = false,
+    },
   })
 
   hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })

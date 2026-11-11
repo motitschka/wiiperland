@@ -17,6 +17,19 @@ inherited from **Adwaita**.
 - Apps that use the Wayland cursor-shape protocol (GTK4, Qt6, Firefox)
   get Hyprland's cursor automatically.
 
+Hyprland's `cursor.sync_gsettings_theme` is turned **off**. Otherwise
+Hyprland copies its cursor theme into gsettings, which GNOME shares, and the
+hand would show up in GNOME too. The trade-off: older GTK3 apps (which read
+gsettings instead of asking the compositor) show the Adwaita arrow inside
+Hyprland.
+
+If GNOME already picked up the hand from an earlier version, reset it:
+
+```bash
+gsettings reset org.gnome.desktop.interface cursor-theme
+gsettings reset org.gnome.desktop.interface cursor-size
+```
+
 Keep your own cursor with `setup({ cursor_theme = nil })`, or change the
 size with `setup({ cursor_size = 64 })`.
 
@@ -32,4 +45,5 @@ The script writes XCursor files directly (no `xcursorgen` needed).
 ## Tested
 - The generated file parses as XCursor (5 sizes, hotspots at the
   fingertip).
-- In the nested session, `grim -c` shows the hand as Hyprland's pointer.
+- In the nested session, `grim -c` shows the hand as Hyprland's pointer,
+  and GNOME's `cursor-theme` setting stays `Adwaita` while it runs.
