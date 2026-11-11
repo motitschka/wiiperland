@@ -126,6 +126,36 @@ eject anything itself. `wii ipc disc state` prints what it sees.
 `dir` and other paths understand `~` and `${VAR}` (environment variables;
 `${WIIPERLAND_ROOT}` is always the repo folder).
 
+## Arranging channels from the menu
+You don't have to edit `config.json` by hand:
+
+- **Move:** hold a tile for half a second, then drag it. A ring shows the
+  slot it will land in; let go and the two slots **swap** (an empty slot
+  simply takes the tile). Holding it at the left or right edge of the screen
+  flips the page. Letting go outside the grid puts it back.
+- **Add:** click an **empty slot**. A list opens with the built-in channels
+  (Disc, Photo, Forecast, Music) followed by every installed app; pick one
+  and it fills the slot. Back or Esc closes the list.
+- **Right-click a tile:** **Move** picks the tile up without holding the
+  button (move the pointer, click to drop, right-click to cancel);
+  **Remove** empties the slot.
+
+Every change is saved to your `config.json` straight away: all other keys
+are kept, the file is rewritten as indented JSON and replaced in one step.
+Comments or hand formatting in the file are not preserved. If you had no
+config of your own yet, the first change creates it from the defaults.
+
+The same from a terminal (slots count from 0):
+
+```bash
+wii ipc menu move 0 6            # swap slots 0 and 6
+wii ipc menu add 7 music         # built-in: disc, photos, forecast, music
+wii ipc menu add 8 org.gnome.Nautilus   # or a desktop entry id / name
+wii ipc menu remove 1
+```
+Each prints `true`, or `false` when it can't be done (empty source, taken
+target, slot out of range).
+
 ## Navigation
 - The neighbouring pages peek in at the screen edges. Clicking a peeking
   tile or an arrow, or scrolling with the wheel or the touchpad, flips pages.
@@ -142,6 +172,14 @@ eject anything itself. `wii ipc disc state` prints what it sees.
   the idle music tile and preview. A **playing** MPRIS player (livelier
   bars, cover art on the tile) was not re-tested in F5.
 - Banners and jingles: see [assets.md](assets.md).
+- Arranging (F7): `menu move`, `add` (a built-in and an app) and `remove`
+  changed the grid at once and the saved file kept `brand`, `pages` and
+  `forecast`; a move from an empty slot and an add onto a taken one were
+  refused. The right-click bubble, the carried tile with its target ring and
+  the picker were shown through test-only IPC (`menu context|carry|picker
+  <slot>`) and looked right. **Holding and dragging with a real mouse,
+  clicking in the picker and the bubble, and the edge flip while dragging**
+  can't be done in the nested session and need a check on real hardware.
 - Disc Channel (F6), with `$WIIPERLAND_MEDIA` pointing at a test folder:
   empty, the tile was dim and the preview said "Please insert a disc." with
   Start grey; after making a sub-folder the tile lit up with its name within

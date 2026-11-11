@@ -19,7 +19,12 @@ export WIIPERLAND_ROOT="$WP_ROOT"
 export XDG_CURRENT_DESKTOP=Hyprland
 # Use the dev channel list unless told otherwise (apps that don't attach to
 # an already running instance in your real session).
-export WIIPERLAND_CONFIG="${WIIPERLAND_CONFIG:-$WP_ROOT/dev/test-config.json}"
+# The menu can rewrite its config (arranging channels), so each run works on
+# a fresh copy and the tracked file stays as it is.
+if [[ -z "${WIIPERLAND_CONFIG:-}" ]]; then
+  cp "$WP_ROOT/dev/test-config.json" "$WP_STATE/config.json"
+  export WIIPERLAND_CONFIG="$WP_STATE/config.json"
+fi
 # Keep the shell's saved state (message board, ...) out of your real ~/.local/state
 export WIIPERLAND_STATE="${WIIPERLAND_STATE:-$WP_STATE/state}"
 # The owner's asset folder may hold files that must never end up in a

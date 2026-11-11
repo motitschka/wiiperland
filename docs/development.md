@@ -65,9 +65,11 @@ Logs are written to `dev/.nested/` (git-ignored).
 - a **private D-Bus session bus** (its own `dbus-daemon`), so the nested
   shell can own the notification service and test apps don't attach to your
   running ones (opt out with `WP_SHARED_DBUS=1`);
-- `WIIPERLAND_CONFIG=dev/test-config.json`: a channel list of apps that open
-  their own instance, with a fixed `forecast.location` so that a screenshot
-  never shows where you are (wttr.in would otherwise guess from your IP);
+- `WIIPERLAND_CONFIG=dev/.nested/config.json`: a fresh copy of
+  `dev/test-config.json` on every start, because the menu can rewrite its
+  config (arranging channels). It is a channel list of apps that open their
+  own instance, with a fixed `forecast.location` so that a screenshot never
+  shows where you are (wttr.in would otherwise guess from your IP);
 - `WIIPERLAND_STATE=dev/.nested/state`: saved state such as the message board;
 - `WIIPERLAND_ASSETS=dev/.nested/assets`: an asset folder for tests (empty
   unless a test fills it), so your own files in `~/.config/wiiperland/assets`

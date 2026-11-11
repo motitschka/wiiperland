@@ -77,6 +77,9 @@ real hardware (they can't be driven from a nested session):
   only);
 - hearing a channel's jingle start and stop with its preview, and how much
   a page full of video banners loads the machine;
+- arranging with a real mouse: hold and drag a tile (also across pages by
+  holding it at the screen edge), click an empty slot and pick from the
+  list, right-click → Move / Remove;
 - the Disc Channel with a real USB stick, SD card or disc, and Start opening
   it in the file manager;
 - tapping SUPER alone to go home, and the keyboard shortcuts inside the
@@ -110,7 +113,7 @@ before the next one starts.
       and jingles from the asset folder, redesigned built-in art for the
       rest.
 - [x] **F6. Disc Channel**: "Please insert a disc." or the mounted drive.
-- [ ] **F7. Arranging channels**: hold and drag to swap, click an empty
+- [x] **F7. Arranging channels**: hold and drag to swap, click an empty
       slot to add, right-click to move or remove.
 - [ ] **F8. Sound and music**: retuned UI sounds, menu music that fades and
       ducks.

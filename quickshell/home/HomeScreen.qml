@@ -14,7 +14,7 @@ PanelWindow {
     exclusionMode: ExclusionMode.Ignore
     WlrLayershell.layer: WlrLayer.Bottom
     WlrLayershell.namespace: "wiiperland-home"
-    WlrLayershell.keyboardFocus: preview.active || board.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.OnDemand
+    WlrLayershell.keyboardFocus: preview.active || board.open || picker.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.OnDemand
     color: Theme.bg
 
     readonly property HyprlandMonitor monitor: Hyprland.monitorFor(screen)
@@ -26,14 +26,17 @@ PanelWindow {
     // Coming back shows "<brand> Menu" in the recess for a moment.
     onMenuOpenChanged: {
         if (menuOpen) bar.arrive()
-        else { if (!preview.busy) preview.reset(); board.open = false }
+        else { if (!preview.busy) preview.reset(); board.open = false; picker.open = false; grid.endDrag(false); grid.menuSlot = -1 }
     }
     Component.onCompleted: if (menuOpen) bar.arrive()
 
     Connections {
         target: Menu
         function onArrive(): void { if (win.menuOpen) bar.arrive() }
-        function onClosePreviews(): void { preview.close(); board.hide() }
+        function onClosePreviews(): void { preview.close(); board.hide(); picker.hide(); grid.endDrag(false); grid.menuSlot = -1 }
+        function onOpenPicker(slot: int): void { if (win.menuOpen && !preview.active && !board.open) picker.show(slot) }
+        function onOpenContext(slot: int): void { if (win.menuOpen && !preview.active) grid.openMenu(slot) }
+        function onCarry(slot: int): void { if (win.menuOpen && !preview.active) grid.startCarry(slot) }
         function onOpenBoard(): void { if (win.menuOpen) board.show() }
         function onOpenPreview(slot: int): void {
             if (!win.menuOpen || !Config.channels[slot]) return
@@ -84,12 +87,19 @@ PanelWindow {
             anchors.fill: parent
             hh: win.height
             opacity: 1 - Math.max(preview.progress, board.progress)
-            enabled: !preview.active && !board.open
+            enabled: !preview.active && !board.open && !picker.open
             onActivated: (slot, tile) => preview.openFrom(slot, tile.mapToItem(menu, 0, 0, tile.width, tile.height))
+            onEmptyClicked: (slot) => picker.show(slot)
         }
 
         ChannelPreview {
             id: preview
+            anchors.fill: parent
+            hh: win.height
+        }
+
+        ChannelPicker {
+            id: picker
             anchors.fill: parent
             hh: win.height
         }

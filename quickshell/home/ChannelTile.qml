@@ -19,6 +19,14 @@ Item {
     onHoveredChanged: if (hovered) Sound.play("tick")
     signal activated(int slot, Item tile)
     signal flip()                      // a peeking tile was clicked
+    signal emptyClicked(int slot)      // an empty slot on the showing page was clicked
+    signal menuRequested(int slot)     // right-click
+    // hold-and-drag: positions are in this tile's coordinates
+    signal held(int slot, real x, real y)
+    signal dragged(real x, real y)
+    signal dropped()
+    property bool lifted: false        // this tile is being dragged: its place looks empty
+    property bool holding: false       // between press-and-hold and release
 
     readonly property real r: height * 0.12
     readonly property real bw: Math.max(1.5, height * 0.014)
@@ -29,6 +37,8 @@ Item {
     ClippingRectangle {
         id: body
         anchors.fill: parent
+        opacity: root.lifted ? 0.3 : 1
+        Behavior on opacity { NumberAnimation { duration: 120 } }
         radius: root.r
         color: root.empty ? "#cccfd0d5" : "#ffffff"
         border.color: root.hovered ? Theme.blueHover : Theme.tileBorder
@@ -138,10 +148,23 @@ Item {
         id: mouse
         anchors.fill: parent
         hoverEnabled: true
-        cursorShape: (root.empty && root.current) ? Qt.ArrowCursor : Qt.PointingHandCursor
-        onClicked: {
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        cursorShape: Qt.PointingHandCursor
+        pressAndHoldInterval: 500
+        onClicked: (ev) => {
             if (!root.current) root.flip()
-            else if (!root.empty) root.activated(root.slot, root)
+            else if (ev.button === Qt.RightButton) { if (!root.empty) root.menuRequested(root.slot) }
+            else if (root.empty) root.emptyClicked(root.slot)
+            else root.activated(root.slot, root)
         }
+        // hold, then drag (a click is not sent after a hold)
+        onPressAndHold: (ev) => {
+            if (ev.button !== Qt.LeftButton || root.empty || !root.current) return
+            root.holding = true
+            root.held(root.slot, ev.x, ev.y)
+        }
+        onPositionChanged: (ev) => { if (root.holding) root.dragged(ev.x, ev.y) }
+        onReleased: if (root.holding) { root.holding = false; root.dropped() }
+        onCanceled: if (root.holding) { root.holding = false; root.dropped() }
     }
 }

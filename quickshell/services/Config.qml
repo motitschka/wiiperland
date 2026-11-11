@@ -48,10 +48,67 @@ Singleton {
 
     function parse(txt: string, from: string): void {
         try {
-            data = JSON.parse(txt)
+            const parsed = JSON.parse(txt)
+            // our own save coming back from the file watcher: nothing new
+            if (_userLoaded && JSON.stringify(parsed) === JSON.stringify(data)) return
+            data = parsed
             console.info("config loaded from", from, "-", channels.length, "channel slots")
         } catch (e) {
             console.warn("config: could not parse", from, ":", e)
         }
+    }
+
+    // ---- arranging channels from the menu -------------------------------
+    // Each change updates `data` at once and rewrites the user's config.json
+    // (every other key is kept; the file is replaced in one step).
+
+    readonly property int slotCount: pageCount * 12
+
+    function save(): void {
+        console.info("config: saving", userPath)
+        Quickshell.execDetached(["sh", "-c",
+            'mkdir -p "$(dirname "$1")" && printf "%s\\n" "$2" > "$1.tmp" && mv "$1.tmp" "$1"',
+            "wii-config", userPath, JSON.stringify(data, null, 2)])
+    }
+
+    function setChannels(list: var): void {
+        const l = list.slice()
+        while (l.length > 0 && !l[l.length - 1]) l.pop()
+        for (let i = 0; i < l.length; i++) if (!l[i]) l[i] = null
+        const d = Object.assign({}, data)
+        d.channels = l
+        data = d
+        save()
+    }
+
+    function _padded(upTo: int): var {
+        const l = channels.slice()
+        while (l.length <= upTo) l.push(null)
+        return l
+    }
+    function _valid(slot: int): bool { return slot >= 0 && slot < slotCount }
+
+    // Put the channel in `from` into `to`; what was there goes to `from`.
+    function moveChannel(from: int, to: int): bool {
+        if (!_valid(from) || !_valid(to) || from === to || !channels[from]) return false
+        const l = _padded(Math.max(from, to))
+        const t = l[to]; l[to] = l[from]; l[from] = t
+        setChannels(l)
+        return true
+    }
+    // Fill an empty slot.
+    function addChannel(slot: int, channel: var): bool {
+        if (!_valid(slot) || channels[slot] || !channel) return false
+        const l = _padded(slot)
+        l[slot] = channel
+        setChannels(l)
+        return true
+    }
+    function removeChannel(slot: int): bool {
+        if (!_valid(slot) || !channels[slot]) return false
+        const l = channels.slice()
+        l[slot] = null
+        setChannels(l)
+        return true
     }
 }
