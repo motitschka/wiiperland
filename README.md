@@ -64,6 +64,7 @@ soon as you save. See [docs/channels.md](docs/channels.md).
 - [Quickshell shell](docs/shell.md)
 - [Channels and config.json](docs/channels.md)
 - [Channel preview and launching](docs/preview-and-launch.md)
+- [Your own assets (sounds, fonts, images)](docs/assets.md)
 - [Sounds](docs/sounds.md)
 - [Message Board](docs/messages.md)
 - [HOME Menu and volume](docs/home-menu.md)

@@ -84,7 +84,7 @@ and the reference notes, is in [PLAN.md](PLAN.md). Same rule as above: each
 step is built, tested in `dev/nested.sh 1920x1200`, documented and pushed
 before the next one starts.
 
-- [ ] **F1. Asset folder**: `~/.config/wiiperland/assets/` (sounds, music,
+- [x] **F1. Asset folder**: `~/.config/wiiperland/assets/` (sounds, music,
       fonts, images, banners) overrides the built-in files through one
       resolver. Docs: `docs/assets.md`.
 - [ ] **F2. Cursor**: redrawn hand (white, dark grey outline, blue "1"

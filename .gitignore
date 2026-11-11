@@ -4,3 +4,4 @@ __pycache__/
 dev/screenshots/
 dev/local.env
 assets/ref/
+assets/user/

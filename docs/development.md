@@ -21,11 +21,24 @@ current Wayland session that uses this repo's config.
 ## Scripts
 | Script | What it does |
 |---|---|
-| `dev/nested.sh [WxH]` | Start a nested Hyprland with `hypr/hyprland.lua` (default 1280x720). Stops any previous one. |
+| `dev/nested.sh [--headless] [WxH]` | Start a nested Hyprland with `hypr/hyprland.lua` (default 1280x720). Stops any previous one. |
 | `dev/hctl.sh …` | `hyprctl` against the nested instance, e.g. `dev/hctl.sh clients`. |
 | `dev/run.sh cmd …` | Run a program inside the nested instance. |
-| `dev/shot.sh [name]` | Screenshot the nested instance to `dev/screenshots/<name>.png`. |
+| `dev/shot.sh [name]` | Screenshot the nested instance to `dev/screenshots/<name>.png`. `WP_CURSOR=1` includes the pointer. |
 | `dev/stop.sh` | Stop the nested instance. |
+
+### Headless mode
+`dev/nested.sh --headless 1920x1200` (or `WP_HEADLESS=1`) adds an off-screen
+output called `WP-HEADLESS` and removes the one that is a window on your
+desktop. Use it for automated testing:
+- nothing pops up on your desktop or takes focus;
+- the size is exact (a window is shrunk by your desktop's panels);
+- screenshots always work. A nested *window* that is hidden, covered or on
+  another workspace isn't drawn, and `grim` would wait for it forever
+  (`dev/shot.sh` gives up after 10 seconds and says so).
+
+The off-screen output draws the pointer into the picture, so screenshots
+show the cursor even without `WP_CURSOR=1`.
 
 Put machine-specific settings such as `QS_PREFIX=...` in `dev/local.env` (git-ignored).
 
@@ -38,7 +51,12 @@ Logs are written to `dev/.nested/` (git-ignored).
   running ones (opt out with `WP_SHARED_DBUS=1`);
 - `WIIPERLAND_CONFIG=dev/test-config.json`: a channel list of apps that open
   their own instance;
-- `WIIPERLAND_STATE=dev/.nested/state`: saved state such as the message board.
+- `WIIPERLAND_STATE=dev/.nested/state`: saved state such as the message board;
+- `WIIPERLAND_ASSETS=dev/.nested/assets`: an asset folder for tests (empty
+  unless a test fills it), so your own files in `~/.config/wiiperland/assets`
+  can't end up in a screenshot;
+- `WIIPERLAND_SILENT=1`: UI sounds are logged, not played. Start with
+  `WP_SOUND=1 dev/nested.sh` to hear them.
 
 `dev/run.sh` uses the same bus, so `dev/run.sh notify-send hi` reaches the
 nested shell.
@@ -51,6 +69,8 @@ nested shell.
 | `WIIPERLAND_DEV_BUS` | D-Bus address the config hands to child processes (dev only). |
 | `WIIPERLAND_CONFIG` | Path of `config.json` to use. |
 | `WIIPERLAND_STATE` | Folder for saved state (default `~/.local/state/wiiperland`). |
+| `WIIPERLAND_ASSETS` | Your asset folder (default `~/.config/wiiperland/assets`), see [assets.md](assets.md). |
+| `WIIPERLAND_SILENT` | `1` logs UI sounds instead of playing them. |
 
 ## Checklist for every change
 1. `Hyprland --verify-config -c hypr/hyprland.lua`

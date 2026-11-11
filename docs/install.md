@@ -28,6 +28,7 @@ What the installer touches (all in your home folder):
 | `~/.config/hypr/hyprland.lua`, `hyprland.conf` | moved to `~/.config/hypr/wiiperland-backup-<date>/` |
 | `~/.config/hypr/hyprland.lua` | new file that loads Wiiperland from the repo and holds your overrides |
 | `~/.config/wiiperland/config.json` | created from `config/config.json` if missing; channels whose apps aren't installed are left out |
+| `~/.config/wiiperland/assets/` | empty folders for your own sounds, music, fonts, images and banners ([assets.md](assets.md)) |
 | `~/.local/share/icons/Wiiperland` | link to the cursor theme |
 | `~/.local/share/fonts/wiiperland` | link to the font (then `fc-cache`) |
 
@@ -49,7 +50,7 @@ hl.monitor({ output = "DP-1", mode = "2560x1440@144", position = "0x0", scale = 
 ## Uninstall
 ```bash
 ./uninstall.sh          # restore the backup, remove links
-./uninstall.sh --purge  # also delete ~/.config/wiiperland and the saved message board
+./uninstall.sh --purge  # also delete ~/.config/wiiperland (config and your assets) and the saved message board
 ```
 
 ## Tested

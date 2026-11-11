@@ -20,16 +20,36 @@ Singleton {
     readonly property color darkText: "#5a5a5a"
     readonly property color white: "#ffffff"
 
+    // Font families. The owner's fonts in <assets>/fonts win (docs/assets.md).
     readonly property string font: regular.name
     readonly property string fontMedium: medium.name
     readonly property string fontBold: bold.name
+    // "" unless the owner supplies fonts/clock.ttf; the clock then uses it
+    // instead of the drawn segment digits.
+    property string clockFont: ""
 
-    readonly property url assets: Qt.resolvedUrl("../assets/")
-    function asset(path: string): url { return Qt.resolvedUrl("../assets/" + path) }
+    // An asset by relative path: the owner's file if present, else the built-in.
+    function asset(path: string): url { return Assets.url(path) }
+
+    function _font(role: string, builtin: string): url {
+        const f = Assets.font(role)
+        return f ? Assets.fresh(f) : Qt.resolvedUrl("../assets/fonts/" + builtin)
+    }
 
     property list<QtObject> _fonts: [
-        FontLoader { id: regular; source: Qt.resolvedUrl("../assets/fonts/MPLUSRounded1c-Regular.ttf") },
-        FontLoader { id: medium; source: Qt.resolvedUrl("../assets/fonts/MPLUSRounded1c-Medium.ttf") },
-        FontLoader { id: bold; source: Qt.resolvedUrl("../assets/fonts/MPLUSRounded1c-Bold.ttf") }
+        FontLoader { id: regular; source: theme._font("ui-regular", "MPLUSRounded1c-Regular.ttf") },
+        FontLoader { id: medium; source: theme._font("ui-medium", "MPLUSRounded1c-Medium.ttf") },
+        FontLoader { id: bold; source: theme._font("ui-bold", "MPLUSRounded1c-Bold.ttf") }
     ]
+
+    // Loaded only while the file exists (a FontLoader with no source complains).
+    Instantiator {
+        model: Assets.font("clock") ? [Assets.font("clock")] : []   // rebuilt when the index changes
+        delegate: FontLoader {
+            required property string modelData
+            source: Assets.fresh(modelData)
+            onStatusChanged: if (status === FontLoader.Ready) theme.clockFont = name
+            Component.onDestruction: theme.clockFont = ""
+        }
+    }
 }

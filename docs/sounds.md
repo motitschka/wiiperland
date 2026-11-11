@@ -22,9 +22,14 @@ public domain / CC0), and stored as WAV files in `quickshell/assets/sounds/`.
 ```
 
 ## How it works
-`services/Sound.qml` runs `pw-play --volume <v> <file>` and falls back to
-`paplay`. The same sound isn't repeated within 45 ms, so sweeping the mouse
-across tiles doesn't stack ticks.
+`services/Sound.qml` asks `Assets.sound(name)` for the file (yours, else the
+built-in), runs `pw-play --volume <v> <file>` and falls back to `paplay`. The
+same sound isn't repeated within 45 ms, so sweeping the mouse across tiles
+doesn't stack ticks.
+
+With `WIIPERLAND_SILENT=1` in the environment, sounds are only logged.
+`dev/nested.sh` sets it, so tests are quiet; `WP_SOUND=1 dev/nested.sh` lets
+them play.
 
 To change a sound, edit `tools/make-sounds.py` and run it:
 
@@ -32,8 +37,9 @@ To change a sound, edit `tools/make-sounds.py` and run it:
 python3 tools/make-sounds.py
 ```
 
-You can also drop your own `<name>.wav` files into
-`quickshell/assets/sounds/`.
+To use your own sounds without touching the repo, put `<name>.wav` (or
+`.ogg`) files in `~/.config/wiiperland/assets/sounds/`. Each one replaces
+the built-in sound of that name; see [assets.md](assets.md).
 
 ## Tested
 - All eight WAVs generate, have sane levels (peak around -8 dBFS) and play

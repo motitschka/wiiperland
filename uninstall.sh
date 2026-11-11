@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Undo install.sh: restore the newest backup of your Hyprland config and remove
-# the links. Your ~/.config/wiiperland/config.json and the message board stay
-# unless you pass --purge.
+# the links. Your ~/.config/wiiperland (config.json and your assets) and the
+# message board stay unless you pass --purge.
 set -euo pipefail
 CONF="${XDG_CONFIG_HOME:-$HOME/.config}"
 DATA="${XDG_DATA_HOME:-$HOME/.local/share}"

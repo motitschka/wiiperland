@@ -149,7 +149,18 @@ Item {
         radius: root.hh * 0.079
         x: root.hh * 0.142 - radius; y: root.hh * 0.858 - radius
         onClicked: root.homeClicked()
+        // the owner's img/home-button.* replaces the brand word
+        Image {
+            id: homeFace
+            anchors.centerIn: parent
+            width: parent.width * 0.66; height: width
+            source: Assets.image("home-button")
+            sourceSize: Qt.size(width, height)
+            fillMode: Image.PreserveAspectFit
+            visible: status === Image.Ready
+        }
         Text {
+            visible: !homeFace.visible
             anchors.centerIn: parent
             text: Config.brand
             font.family: Theme.fontBold; font.pixelSize: parent.height * 0.3; font.weight: Font.Bold
@@ -162,7 +173,19 @@ Item {
         x: root.ww - root.hh * 0.142 - radius; y: root.hh * 0.858 - radius
         glowing: root.unread > 0
         onClicked: root.mailClicked()
+        // the owner's img/mail.* replaces the drawn envelope
+        Image {
+            id: mailFace
+            anchors.horizontalCenter: parent.horizontalCenter
+            y: parent.height * (root.unread > 0 ? 0.2 : 0.27)
+            width: parent.width * 0.5; height: width * 0.8
+            source: Assets.image("mail")
+            sourceSize: Qt.size(width, height)
+            fillMode: Image.PreserveAspectFit
+            visible: status === Image.Ready
+        }
         MailIcon {
+            visible: !mailFace.visible
             anchors.horizontalCenter: parent.horizontalCenter
             y: parent.height * (root.unread > 0 ? 0.24 : 0.32)
             width: parent.width * 0.5; height: width * 0.68

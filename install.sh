@@ -10,6 +10,7 @@
 #   - writes a new ~/.config/hypr/hyprland.lua that loads Wiiperland from this repo
 #   - copies config/config.json to ~/.config/wiiperland/ (only if missing),
 #     leaving out channels whose apps aren't installed
+#   - creates ~/.config/wiiperland/assets/ for your own sounds, fonts and art
 #   - links the cursor theme and font into ~/.local/share
 # Undo with ./uninstall.sh
 set -euo pipefail
@@ -133,6 +134,11 @@ PY
   fi
 fi
 
+# --- your own assets -------------------------------------------------------------
+ASSETS="${WIIPERLAND_ASSETS:-$CONF/wiiperland/assets}"
+say "Making sure $ASSETS exists (your own sounds, music, fonts, images, banners)"
+run mkdir -p "$ASSETS"/{sounds,music,fonts,img,banners}
+
 # --- cursor theme and font -------------------------------------------------------
 say "Linking cursor theme and font into $DATA"
 run mkdir -p "$DATA/icons" "$DATA/fonts"
@@ -148,5 +154,6 @@ cat <<TXT
     SUPER (tap)   back to the menu        SUPER+ESC   HOME Menu
     SUPER+RETURN  terminal ($term)        SUPER+L     lock
   Channels live in $WCONF.
+  Your own sounds, fonts and art go in $ASSETS (docs/assets.md).
   Undo everything with: $ROOT/uninstall.sh
 TXT

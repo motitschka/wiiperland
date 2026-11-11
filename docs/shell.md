@@ -8,7 +8,8 @@ config in `quickshell/`. Hyprland starts it with `qs -p <repo>/quickshell`.
 quickshell/
   shell.qml              entry point: one HomeScreen per monitor, IPC handlers
   services/              singletons (import qs.services)
-    Theme.qml            colours, fonts, asset paths, brand label
+    Theme.qml            colours, fonts, brand label
+    Assets.qml           the owner's asset folder (overrides for built-in files)
     Time.qml             clock state (12/24h, blinking colon, date text)
     Config.qml           loads and watches config.json
     Menu.qml             menu state (page, ...) + `menu` IPC target
@@ -47,8 +48,9 @@ quickshell/
     fonts/               M PLUS Rounded 1c (OFL)
     img/stripes.png      1×6 px tile for the striped background
 ```
-Assets live inside `quickshell/` because Quickshell refuses to load files from
-outside the config folder.
+Built-in assets live inside `quickshell/` because Quickshell refuses relative
+URLs that leave the config folder. Your own sounds, fonts and images go in
+`~/.config/wiiperland/assets/` and override them; see [assets.md](assets.md).
 
 ## Sizing
 Everything is designed against a 720 px tall screen. Sizes are fractions of the
@@ -71,6 +73,7 @@ keep the right proportions instead of stretching.
 | `shell` | `toast(title, body)` | Post a message (toast + board) |
 | `shell` | `osd(kind)` | On-screen indicator, e.g. `volume` |
 | `homemenu` | `toggle()` / `open()` / `close()` | HOME Menu |
+| `assets` | `list()`, `reload()`, `sound(name)`, ... | The asset folder, see [assets.md](assets.md) |
 
 ## Customising
 See [channels.md](channels.md) for `config.json` (brand label, 24-hour
