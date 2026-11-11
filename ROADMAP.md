@@ -122,7 +122,7 @@ before the next one starts.
 - [x] **F8. Sound and music**: retuned UI sounds, menu music that fades and
       ducks.
 - [x] **F9. Motion**: timings measured from the reference recording.
-- [ ] **F10. Welcome screen**: once per calendar day, replaces the startup
+- [x] **F10. Welcome screen**: once per calendar day, replaces the startup
       screen.
 - [ ] **F11. Wrap-up**: README, docs, screenshots, full install test.
 

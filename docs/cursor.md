@@ -15,7 +15,7 @@ The same hand is used everywhere, in two sizes:
 
 | Where | Size |
 |---|---|
-| The menu (workspace 1), the HOME Menu, the lock screen, the startup screen | Wii-sized: **8% of the screen height** (96 px on a 1200 px screen, 86 px on 1080p) |
+| The menu (workspace 1), the HOME Menu, the lock screen, the welcome screen | Wii-sized: **8% of the screen height** (96 px on a 1200 px screen, 86 px on 1080p) |
 | Apps | `cursor_size`, default **48** |
 
 How it works: Hyprland has no setting for "a different cursor size on one

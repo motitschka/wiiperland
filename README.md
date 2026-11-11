@@ -71,7 +71,7 @@ soon as you save. See [docs/channels.md](docs/channels.md).
 - [Sounds and music](docs/sounds.md)
 - [Message Board](docs/messages.md)
 - [HOME Menu and volume](docs/home-menu.md)
-- [Lock screen and startup screen](docs/lock-and-startup.md)
+- [Lock screen and welcome screen](docs/lock-and-startup.md)
 - [Cursor](docs/cursor.md)
 - [Development and testing](docs/development.md)
 - [Roadmap](ROADMAP.md)

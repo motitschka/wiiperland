@@ -6,10 +6,10 @@ Read this, then `PLAN.md`, `ROADMAP.md` and `docs/development.md`.
 ## Where things stand
 - Branch `main`, clean, pushed. See `git log` for the last commit (F9 or
   later).
-- Wii fidelity steps **F1 to F9 are done**: built, tested in the off-screen
+- Wii fidelity steps **F1 to F10 are done**: built, tested in the off-screen
   session, documented, committed, pushed. No step is half-finished and there
   is no handoff file (`F<n>-HANDOFF.md`) lying around.
-- **Left: F10, F11.** Then the plan is complete.
+- **Left: F11.** Then the plan is complete.
 
 ## How the owner wants the work done
 - For every step: build → test in `dev/nested.sh --headless 1920x1200`
@@ -34,29 +34,17 @@ Timings were measured from the recording and are in
 `docs/preview-and-launch.md` ("Timings"). The recording has no page slide,
 no preview closing and no clear channel start, so those kept our own values.
 
-## F10. Welcome screen
-PLAN.md, decision 10. Replaces `quickshell/overlays/Startup.qml`:
-- Styled like our menus (striped background, the blue line, bar styling),
-  showing just **"Welcome"**. Not a copy of the Wii's start-up notice.
-- Shown **only on the first start of each calendar day**: keep the last shown
-  date in the state folder (`$WIIPERLAND_STATE`, default
-  `~/.local/state/wiiperland`), not in `$XDG_RUNTIME_DIR`.
-- Stays until a click anywhere or Enter. No auto-fade.
-- The existing IPC `startup dismiss` is used by every test run; keep it
-  working (or rename it and update `docs/development.md` and
-  `docs/lock-and-startup.md`). Add a way to force it for tests, since the
-  once-a-day rule would otherwise hide it on the second run.
-- `config.json` has `startupScreen` (see `docs/channels.md`); keep or rename
-  it consistently.
-- The menu music (F8) should stay silent behind the welcome screen: set
-  `Music.hold` the way `LockScreen.qml` does.
+## F10. Welcome screen: done
+`quickshell/overlays/Welcome.qml`, documented in `docs/lock-and-startup.md`.
+Tests should call `wii ipc welcome dismiss` (or the old `startup dismiss`)
+after starting the session; it is a no-op when the screen isn't up.
 
 ## F11. Wrap-up
 PLAN.md, "Suggested order" item 11:
 - Bring `README.md`, `ROADMAP.md` ("Status" section still describes the
   pre-fidelity phases) and every file in `docs/` up to date; retake all
   screenshots in `docs/img/` (`home-bar.png`, `home-menu.png`,
-  `message-board.png` and `startup.png` predate F3 to F8; the HOME Menu now
+  and `message-board.png` predate F3 to F8; the HOME Menu now
   has the music controls and the message board has the glossy pills).
 - Full end-to-end test: `install.sh` into a throwaway `HOME`, as described in
   `docs/install.md`.

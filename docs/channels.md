@@ -30,7 +30,7 @@ file is watched, so saving it updates the menu immediately.
 | `music` | `true` | Menu music ([sounds.md](sounds.md#menu-music)) |
 | `musicVolume` | `0.35` | 0 to 1 |
 | `pages` | `4` | Minimum number of pages (each holds 12 slots). More are added automatically if `channels` is longer. |
-| `startupScreen` | `true` | "Click to continue" screen once per login ([lock-and-startup.md](lock-and-startup.md)) |
+| `welcomeScreen` | `true` | "Welcome" screen on the first start of each day ([lock-and-startup.md](lock-and-startup.md)) |
 | `lock.idleMinutes` | `10` | Lock after this many idle minutes; `0` = never |
 | `cursor.menuSize` | `"auto"` | Pointer size on the menu: `"auto"` (8% of the screen height), a number of pixels, or `0` for the app size ([cursor.md](cursor.md)) |
 | `forecast` | | Weather settings, see below |

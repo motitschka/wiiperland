@@ -16,7 +16,7 @@ ShellRoot {
     HomeMenu { id: homeMenu }
     Osd { id: osd }
     LockScreen { id: lock }
-    Startup {}
+    Welcome {}
 
     // make sure the notification server, the pointer sizing and the music start with the shell
     readonly property int _unread: Messages.unread

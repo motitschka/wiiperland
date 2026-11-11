@@ -19,7 +19,14 @@ Singleton {
     readonly property string file: Assets.music("menu") || Assets.builtinDir + "/music/menu.ogg"
     readonly property bool custom: Assets.music("menu") !== ""
 
-    property bool hold: false            // set by the lock screen
+    // Screens that want silence (lock, welcome) each put their name in.
+    property var holders: ({})
+    readonly property bool hold: Object.keys(holders).length > 0
+    function setHold(who: string, on: bool): void {
+        const h = Object.assign({}, holders)
+        if (on) h[who] = true; else delete h[who]
+        holders = h
+    }
     property bool available: true        // false if the player can't be loaded or the file can't be played
 
     // Is anything else making sound? An MPRIS player that is playing, or an

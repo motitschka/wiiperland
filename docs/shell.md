@@ -42,7 +42,7 @@ quickshell/
     HomeMenu.qml         HOME Menu overlay (SUPER+ESC)
     Osd.qml              volume indicator
     LockScreen.qml       session lock + PAM + idle auto-lock
-    Startup.qml          once-per-login "click to continue" screen
+    Welcome.qml          "Welcome" screen, first start of each day
   channels/              tile art per channel type (import qs.channels)
     ChannelArt.qml       the owner's banner, else the built-in art for the type
     BannerArt.qml        full-bleed banner: still, animated or video

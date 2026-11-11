@@ -45,7 +45,7 @@ as they reload.
   `dev/shot.sh <name>` screenshots, `dev/stop.sh` stops it.
 - The mouse can't be clicked in the nested session. Drive the UI through IPC
   (`dev/run.sh bin/wii ipc menu open 2`, `... menu start`,
-  `... startup dismiss`, ...) and add IPC entry points for new features so
+  `... welcome dismiss`, ...) and add IPC entry points for new features so
   they can be tested. Hover can be triggered with `dev/hover.sh 600 300`
   (a plain `hyprctl` cursor move isn't seen by Qt; see `docs/development.md`).
   `grim -c` (with the instance env loaded) captures the cursor too.

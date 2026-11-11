@@ -60,6 +60,6 @@ In a throwaway home folder:
   wrote the entry point and `config.json` (leaving out the uninstalled
   terminal), and linked the cursor and font.
 - `Hyprland --verify-config` passes on the generated `hyprland.lua`. A nested
-  Hyprland started from it shows the startup screen, the menu with the
+  Hyprland started from it shows the welcome screen, the menu with the
   installed channels, toasts, the channel preview and the HOME Menu.
 - `uninstall.sh` restored both original files and removed the links.

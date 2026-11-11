@@ -1,4 +1,4 @@
-# Lock screen and startup screen
+# Lock screen and welcome screen
 
 ## Lock screen
 A real session lock (`ext-session-lock`, via Quickshell's `WlSessionLock`)
@@ -28,21 +28,35 @@ The lock uses PAM's default `login` service through Quickshell. If your system
 needs something else (fingerprint, ...), that is configured in
 `/etc/pam.d/`.
 
-## Startup screen
-Once per Hyprland session, a white "HELLO AGAIN" screen asks you to take
-breaks and stretch, and waits for a click or a key. It then fades into the
-menu with the start sound. It's shown again only after logging in again (a
-marker file lives in `$XDG_RUNTIME_DIR`).
+## Welcome screen
+On the **first start of each calendar day**, the menu's striped background
+and bar appear with one word, **Welcome**. It stays until you **click
+anywhere or press Enter**; there is no timeout and other keys do nothing. It
+then fades into the menu with the start sound. The menu music waits until it
+is gone.
+
+![](img/welcome.png)
+
+The day it was last shown is kept in `welcome-date` in the state folder
+(`~/.local/state/wiiperland`, or `$WIIPERLAND_STATE`), so logging out or
+rebooting on the same day doesn't bring it back.
 
 ```json
-"startupScreen": true
+"welcomeScreen": true
 ```
+`false` turns it off. The older name `startupScreen` is still read.
 
-IPC: `wii ipc startup show` / `dismiss`.
+IPC: `wii ipc welcome open` (show it now, whatever the date),
+`wii ipc welcome dismiss`, `wii ipc welcome state`. The old
+`wii ipc startup dismiss` still works.
 
 ## Tested
-- Startup screen appears on the first start of the nested session and
-  dismisses with a fade.
+- Welcome screen (F10) in the nested session: with no `welcome-date` it
+  showed on start and wrote today's date; on the next start the same day it
+  stayed away; with yesterday's date in the file it showed again. `welcome
+  open` forces it, `dismiss` fades to the menu, and the music state was
+  `off` while it showed and `playing` after. A real click and the Enter key
+  can't be sent in the nested session and need a check on real hardware.
 - `wii lock` locks the nested session (lock surface renders). `isLocked`
   reports `true`.
 - Unlocking in testing used the **dev-only** `lock devUnlock` IPC call, which
